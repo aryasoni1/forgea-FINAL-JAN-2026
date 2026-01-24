@@ -1,0 +1,108 @@
+datasource db {
+  provider = "postgresql"
+
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  CANDIDATE
+  ADMIN
+  RECRUITER
+}
+
+enum SubscriptionTier {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum LabStatus {
+  IN_PROGRESS
+  STUCK
+  VERIFIED_PASS
+  DEFERRED
+}
+
+enum FailureClass {
+  RESOURCE_LEAK
+  STATE_CORRUPTION
+  RENDERING_FAILURE
+  SECURITY_EXPOSURE
+  PERFORMANCE_DEGRADATION
+  DATA_INTEGRITY
+}
+
+model User {
+  id        String  @id @default(uuid()) @db.Uuid
+  githubId  String  @unique
+  email     String  @unique
+  role      UserRole
+  tier      SubscriptionTier
+  icprScore Int     @default(0)
+
+  sessions   LabSession[]
+  auditLogs  AuditLog[]
+}
+
+model Lab {
+  id                   String   @id @default(uuid()) @db.Uuid
+  title                String
+  epic                 String
+  failureClass         FailureClass
+  sourceGithubIssueUrl String
+  repoVersion          String
+  baseRepoUrl          String
+  constraints          Json
+
+  sessions LabSession[]
+}
+
+model LabSession {
+  id             String   @id @default(uuid()) @db.Uuid
+  userId         String   @db.Uuid
+  labId          String   @db.Uuid
+  status         LabStatus @default(IN_PROGRESS)
+  userForkUrl    String
+  previewUrl     String?
+  startedAt      DateTime  @default(now())
+  lastActivityAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+  lab  Lab  @relation(fields: [labId], references: [id], onDelete: Restrict)
+
+  verificationLog VerificationLog?
+  resumeBullet    ResumeBullet?
+}
+
+model VerificationLog { // immutable record of CI verification
+  id         String   @id @default(uuid()) @db.Uuid
+  sessionId  String   @unique @db.Uuid
+  commitSha  String
+  prDiff     String   @db.Text
+  ciOutput   String   @db.Text
+  verifiedAt DateTime @default(now())
+
+  session LabSession @relation(fields: [sessionId], references: [id], onDelete: Restrict)
+}
+
+model ResumeBullet {
+  id          String    @id @default(uuid()) @db.Uuid
+  sessionId   String    @unique @db.Uuid
+  bulletText  String
+  atsKeywords String[]
+
+  session LabSession @relation(fields: [sessionId], references: [id], onDelete: Restrict)
+}
+
+model AuditLog { // immutable audit trail entry
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  action    String
+  metadata  Json
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+}

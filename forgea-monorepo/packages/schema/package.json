@@ -1,0 +1,13 @@
+{
+  "name": "@forgea/schema",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "prisma": "^7.3.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.3.0"
+  }
+}
