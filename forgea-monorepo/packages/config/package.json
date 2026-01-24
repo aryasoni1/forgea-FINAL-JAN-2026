@@ -1,0 +1,6 @@
+{
+  "name": "@forgea/config",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Shared TypeScript & ESLint config for Forgea"
+}
