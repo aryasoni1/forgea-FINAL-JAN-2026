@@ -88,13 +88,15 @@ model Lab {
   id                   String   @id @default(uuid()) @db.Uuid
   title                String
   epic                 String
-  failureClass         FailureClass   @@index([failureClass])
+  failureClass         FailureClass
   sourceGithubIssueUrl String
   repoVersion          String
   baseRepoUrl          String
   constraints          Json
 
   sessions LabSession[]
+
+  @@index([failureClass])
 }
 
 model LabSession {
