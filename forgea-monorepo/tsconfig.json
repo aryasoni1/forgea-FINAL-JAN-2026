@@ -1,0 +1,14 @@
+{
+  "extends": "./packages/config/tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@forgea/schema": ["packages/schema/src/index.ts"],
+      "@forgea/schema/*": ["packages/schema/src/*"],
+      "@forgea/audit": ["packages/audit/src/audit.service.ts"],
+      "@forgea/audit/*": ["packages/audit/src/*"]
+    }
+  },
+  "include": ["apps/**/*", "packages/**/*", "services/**/*"]
+}
