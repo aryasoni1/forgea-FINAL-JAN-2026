@@ -6,6 +6,10 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "prisma:generate": "prisma generate --schema prisma/schema.prisma",
+    "postinstall": "pnpm run prisma:generate"
+  },
   "devDependencies": {
     "@types/node": "^25.0.10",
     "prisma": "^7.3.0"
