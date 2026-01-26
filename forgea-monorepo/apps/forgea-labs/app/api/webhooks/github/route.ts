@@ -1,11 +1,7 @@
 import crypto from "crypto";
 import { db } from "@/lib/db";
-import { AuditService } from "../../../../../../packages/audit/src/audit.service";
-import {
-  AuditAction,
-  AuditActorType,
-  AuditResourceType,
-} from "../../../../../../packages/schema/src";
+import { AuditService } from "@forgea/audit";
+import { AuditAction, AuditActorType, AuditResourceType } from "@forgea/schema";
 import { LabStatus } from "@prisma/client";
 
 type GitHubPushPayload = {

@@ -1,13 +1,9 @@
+import type { UserRole } from "@prisma/client";
+
 /**
  * RBAC primitives (STRICT, non-hierarchical)
  * Trust > Convenience. Default deny.
  */
-
-export enum UserRole {
-  CANDIDATE = "CANDIDATE",
-  RECRUITER = "RECRUITER",
-  ADMIN = "ADMIN",
-}
 
 export enum SubscriptionTier {
   FREE = "FREE",

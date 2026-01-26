@@ -8,7 +8,8 @@
       "@lib/*": ["./lib/*"],
       "@auth": ["./auth"],
       "@auth.config": ["./auth.config"],
-      "@forgea/schema": ["../../packages/schema/src/index.ts"]
+      "@forgea/schema": ["../../packages/schema/src/index.ts"],
+      "@forgea/audit": ["../../packages/audit/src/audit.service.ts"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
