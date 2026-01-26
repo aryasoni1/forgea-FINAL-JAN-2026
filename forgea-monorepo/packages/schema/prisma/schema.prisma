@@ -1,6 +1,5 @@
 datasource db {
   provider = "postgresql"
-
 }
 
 generator client {
@@ -138,10 +137,11 @@ model ResumeBullet {
 
 model AuditLog { // immutable audit trail entry
   id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @db.Uuid
+  userId    String?  @db.Uuid
+  actorId   String
   action    String
   metadata  Json?
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+  user User? @relation(fields: [userId], references: [id], onDelete: Restrict)
 }

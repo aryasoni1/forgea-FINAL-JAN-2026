@@ -1,5 +1,17 @@
-export default {
+import "dotenv/config";
+import { defineConfig, env } from "prisma/config";
+import dotenv from "dotenv";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+
+export default defineConfig({
   datasource: {
-    url: process.env.DATABASE_URL || "postgresql://aryasoni@localhost:5432/forgea_db",
+    url: env("DATABASE_URL"),
   },
-};
+  migrations: {
+    seed: "node --loader ts-node/esm --experimental-specifier-resolution=node prisma/seed.ts",
+  },
+});

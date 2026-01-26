@@ -263,7 +263,8 @@ export class AuditService {
 
       await db.auditLog.create({
         data: {
-          userId: actor.id,
+          userId: actor.type === "USER" ? actor.id : null,
+          actorId: actor.id,
           action,
           metadata: boundedMetadata as Prisma.InputJsonValue,
         },
