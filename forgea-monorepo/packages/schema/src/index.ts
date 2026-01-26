@@ -7,7 +7,6 @@ export {
   type SessionUser,
   type AuditEvent,
   SubscriptionTier as AppSubscriptionTier,
-  UserRole as AppUserRole,
 } from "./types";
 
 export * from "./audit-actions";

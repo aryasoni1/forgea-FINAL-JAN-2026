@@ -261,9 +261,13 @@ export class AuditService {
 
       const boundedMetadata = enforceMetadataSize(finalMetadata);
 
+      const isUserActor =
+        actor.type === AuditActorType.USER ||
+        actor.type === AuditActorType.ADMIN;
+
       await db.auditLog.create({
         data: {
-          userId: actor.type === "USER" ? actor.id : null,
+          userId: isUserActor ? actor.id : undefined,
           actorId: actor.id,
           action,
           metadata: boundedMetadata as Prisma.InputJsonValue,
