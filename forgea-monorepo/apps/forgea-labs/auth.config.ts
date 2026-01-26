@@ -1,4 +1,4 @@
-import type { NextAuthConfig } from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -113,8 +113,8 @@ export const authConfig = {
   },
   providers: [
     GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_ID ?? "",
+      clientSecret: process.env.GITHUB_SECRET ?? "",
       allowDangerousEmailAccountLinking: false,
       profile(profile: { id: string | number; email?: string | null }) {
         return {
@@ -173,4 +173,4 @@ export const authConfig = {
       },
     }),
   ],
-} satisfies NextAuthConfig;
+} satisfies NextAuthOptions;

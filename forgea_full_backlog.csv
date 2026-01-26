@@ -1,0 +1,100 @@
+Summary,Issue Type,Priority,Description,Component
+"Freeze v1 scope & non-goals",Task,Highest,"List ONLY v1 features + explicit non-goals. Warn if unsafe. Prevents feature creep.",Scope
+"Create monorepo folders",Task,High,"Validate monorepo boundaries for Forgea using Turborepo.",Repo
+"Workspace + lint base",Task,Medium,"Create base tsconfig + lint rules. No rules tuning.",Tooling
+"Core tables schema",Story,Highest,"Generate Prisma schema strictly from spec. Ensure tables are immutable.",DB
+"Enforce immutability",Task,High,"Add DB constraints/triggers for append-only audit logs.",DB
+"Basic auth flow",Story,High,"Generate auth scaffolding with session cookies.",Auth
+"Role middleware",Task,High,"Create role middleware (admin-only routes). No defaults.",Auth
+"Audit logger",Task,High,"Create audit helper requiring actor, action, and context.",Audit
+"App routing skeleton",Task,Medium,"Generate Next.js app router dashboard routes.",Routes
+"Layout shells",Task,Low,"Create header/main/footer layout. No styling.",UI
+"Fake lab page",Story,Medium,"Create lab page with stub states to validate flow.",Labs
+"Verifier stub",Task,High,"Create verifier interface + fake responses.",Verify
+"Resume artifact stub",Task,Medium,"Generate proof record schema for credibility.",Proof
+"Read-only preview",Task,High,"Create read-only preview for recruiters. No write access.",Preview
+"Admin shell",Task,Medium,"Create read-only admin tables for control plane.",Admin
+"Admin hardening",Task,High,"Add guards and checks to admin routes. No bypasses.",Security
+"Rate limits",Task,Highest,"Add rate limits with conservative defaults for cost control.",Abuse
+"Attempt limits",Task,Medium,"Enforce cooldown logic for lab retries.",Labs
+"Design tokens",Task,Low,"Create semantic tokens for UX trust.",UI
+"Kill switches",Task,Highest,"Add feature flags with admin-only access for emergencies.",Ops
+"Env separation",Task,High,"Create env config files for dev/prod safety.",Env
+"Credit guardrails",Task,High,"Add credit counter + hard stop to cap verification costs.",Cost
+"Failure flags",Task,Medium,"Add chaos flag toggles to simulate verifier failure.",Chaos
+"Architecture docs",Task,Low,"Generate docs from code comments (architecture.md).",Docs
+"Trust model docs",Task,Medium,"Document trust boundaries (trust-model.md).",Docs
+"Naming cleanup",Task,Low,"Rename for clarity across the codebase.",Cleanup
+"Self audit",Task,Medium,"List critical gaps in the SaaS skeleton.",Review
+"Remove dead code",Task,Low,"Delete unused files and bloat.",Cleanup
+"Release tag v0.1",Task,Medium,"Create v0.1 git tag milestone.",Tag
+"Cold start test",Task,High,"Verify fresh clone runs and boots cleanly.",Verify
+"Per-user preview subdomain",Story,High,"Setup {user}.forgea-preview.tech for recruiter safety.",Preview
+"Preview routing + isolation",Task,High,"Ensure no data leaks between user previews.",Preview
+"Static artifact renderer",Task,Medium,"Render proof artifacts even when containers die.",Preview
+"Proof permalink hardening",Task,High,"Secure the trust anchor for proof links.",Preview
+"SEO Safety: robots config",Task,Low,"Configure no-index for preview subdomains.",Preview
+"Lab session lifecycle table",Task,High,"Create the source of truth for lab sessions.",Labs
+"Lab start API (real)",Story,High,"Implement the entry point for starting a lab.",Labs
+"Lab state transitions",Task,High,"Prevent invalid state jumps in labs.",Labs
+"Session timeout GC",Task,Medium,"Automatic cleanup of timed-out sessions for cost control.",Labs
+"Concurrent lab limits",Task,High,"Limit active labs per user for infra safety.",Labs
+"Runner service scaffold",Task,High,"Setup isolated runner service.",Verify
+"Dockerfile per lab",Task,High,"Ensure determinism with lab-specific Dockerfiles.",Verify
+"Playwright test harness",Story,High,"Implement real proof via Playwright.",Verify
+"Log streaming protocol",Task,Medium,"Stream verification logs to user for UX trust.",Verify
+"Artifact persistence",Task,High,"Build the audit trail for proof persistence.",Verify
+"Failure classification",Task,Medium,"Categorize failures for signal quality.",Verify
+"Replay protection",Task,High,"Implement anti-abuse for verification replays.",Verify
+"Monaco editor integration",Story,Medium,"Add Monaco for professional dev credibility.",Editor
+"FS abstraction",Task,Medium,"Support multi-file labs with a file system layer.",Editor
+"Git diff tracking",Story,High,"Link proof to specific code diffs.",Editor
+"Save/restore state",Task,Medium,"Implement reliability for user session saves.",Editor
+"Read-only review mode",Task,High,"Recruiter-specific read-only view.",Editor
+"Lesson schema (Astro)",Task,Medium,"Define schema for scalable content ingestion.",Learn
+"MDX ingestion",Task,Low,"Author lessons using MDX.",Learn
+"Lesson versioning system",Task,Medium,"Safety for backwards-compatible content updates.",Learn
+"Lesson to Lab linking",Task,Medium,"Connect the learning path to the product loop.",Learn
+"Progress tracking",Task,Low,"Implement UX for user progress.",Learn
+"Lesson read-only mode",Task,Low,"SEO-friendly read-only lessons.",Learn
+"Lab template format",Task,Medium,"Create reusable lab templates.",Labs
+"Failure class taxonomy",Task,Medium,"Ensure signal consistency across all labs.",Labs
+"Seed bug injection",Task,High,"Deterministic failure generation via seed bugs.",Labs
+"Difficulty calibration",Task,Medium,"Ensure fairness in lab grading.",Labs
+"Internal lab author UI",Task,Low,"Increase velocity for internal content team.",Labs
+"AI lab generator (offline)",Task,Low,"Scale content creation with AI.",Labs
+"Human validation loop",Task,High,"Ensure trust with a human check on AI labs.",Labs
+"Homepage & Value Prop",Story,High,"First impression and conversion copy.",Landing
+"Pricing & Comparison pages",Story,High,"Revenue generation and positioning.",Landing
+"Case studies (fake to real)",Task,Medium,"Build social proof over time.",Landing
+"First-run experience",Story,High,"Retention-focused onboarding flow.",UX
+"Empty states & Error UX",Task,Medium,"Reduce churn and build trust during failures.",UX
+"Resume export UX",Story,High,"Core value: exportable proof of skill.",UX
+"Viral share flow",Task,Low,"Encourage users to share their proof.",UX
+"Stripe products & Webhooks",Story,High,"Monetization setup and state sync.",Billing
+"Tier gating & Usage metering",Task,High,"Enforce plan limits and fairness.",Billing
+"Redis rate limits",Task,Highest,"Implement survival rate limits.",Abuse
+"Credit ledger",Task,High,"Manage user wallet safety for compute.",Abuse
+"Kill switches & Audit escalation",Task,High,"Safety and legal audit trails.",Abuse
+"Reddit posting bot & templates",Task,Medium,"Automated traffic generation.",Growth
+"Subreddit research & Shadow-ban safety",Task,Medium,"Ensure account health during outreach.",Growth
+"Twitter/LinkedIn automation",Task,Medium,"Reach hiring managers and developers.",Growth
+"Video pipeline (Reels/Shorts)",Task,Low,"Mass reach via video content.",Growth
+"Programmatic SEO pages",Task,Medium,"Scale search discoverability.",Growth
+"Logging & Error tracking",Task,High,"Operational stability and debugging.",Ops
+"CI/CD & Rollbacks",Task,High,"Deployment safety and survival.",Ops
+"TOS/Privacy Policy",Task,Highest,"Basic legal compliance.",Legal
+"GDPR Data deletion flow",Task,High,"Compliance with data laws.",Legal
+"GitHub App (not OAuth)",Story,Highest,"Repo control and security model.",GitHub
+"Repo template system",Task,High,"Deterministic lab creation via templates.",GitHub
+"Private repo per lab",Task,High,"Isolate user work for IP and security.",GitHub
+"Branch protection rules",Task,High,"Prevent cheating via force-push.",GitHub
+"Webhook receiver (HMAC)",Story,Highest,"Verify GitHub push events securely.",GitHub
+"Build on push",Story,High,"Trigger ephemeral preview builds on Git push.",Preview
+"Auto-trigger verify on push",Story,High,"Real-time verification flow.",Verify
+"Anti-cheat: Detect force-push",Task,High,"Identify suspicious Git history changes.",Abuse
+"Recruiter 'What this proves' legend",Task,Medium,"Interpret skill signal for non-technical users.",Recruiter
+"OS-specific setup scripts",Task,High,"Prevent local dev rage-quits on Windows/Mac.",LocalDev
+"Appeal flow for failed verify",Story,Medium,"Allow users to dispute technical failures.",Trust
+"Time vs Quality correlation model",Task,Medium,"Calibrate signal based on solve speed.",Signal
+"Founder-only emergency override",Task,Highest,"Manual kill switch for catastrophic failures.",Ops
