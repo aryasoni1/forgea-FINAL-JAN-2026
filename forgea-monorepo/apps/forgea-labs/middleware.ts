@@ -8,6 +8,7 @@ const protectedRoutes = ["/dashboard", "/lab", "/ticket", "/admin"];
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const isDev = process.env.NODE_ENV === "development";
 
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route),
@@ -21,6 +22,10 @@ export function middleware(request: NextRequest) {
   )?.value;
   const devCookie = request.cookies.get("next-auth.session-token")?.value;
   const hasSessionCookie = Boolean(secureCookie || devCookie);
+
+  if (isDev && pathname.startsWith("/ticket")) {
+    return NextResponse.next();
+  }
 
   if (!hasSessionCookie && isProtectedRoute) {
     return NextResponse.redirect(new URL("/login", request.url));

@@ -10,5 +10,5 @@
       "@forgea/audit/*": ["packages/audit/src/*"]
     }
   },
-  "include": ["apps/**/*", "packages/**/*", "services/**/*"]
+  "include": ["packages/**/*", "services/**/*"]
 }

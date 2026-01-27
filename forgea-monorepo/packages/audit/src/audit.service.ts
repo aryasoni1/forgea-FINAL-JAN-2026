@@ -6,8 +6,8 @@ import {
   AuditActorType,
   AuditResourceType,
   AuditSeverity,
-} from "../../schema/src/audit-actions";
-import { db } from "../../schema/src/db";
+  db,
+} from "@forgea/schema";
 
 /**
  * AUDIT LOGS ARE APPEND-ONLY.

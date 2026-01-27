@@ -1,1 +1,1 @@
-export { db } from "../../../packages/schema/src/db";
+export { db } from "@forgea/schema";

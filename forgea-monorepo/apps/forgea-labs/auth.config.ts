@@ -10,13 +10,13 @@ import crypto from "node:crypto";
 import {
   AuditService,
   RequestContext,
-} from "../../packages/audit/src/audit.service";
+} from "@forgea/audit";
 import {
   AuditAction,
   AuditActorType,
   AuditResourceType,
-} from "../../packages/schema/src/audit-actions";
-import { UserRole } from "../../packages/schema/src/types";
+} from "@forgea/schema";
+import { UserRole } from "@prisma/client";
 
 const credentialsSchema = z.object({
   email: z.string().email(),
@@ -37,7 +37,7 @@ export const authConfig = {
       account?: { provider?: string | null } | null;
     }) {
       try {
-        const h = headers();
+        const h = await headers();
         const userAgent = h.get("user-agent") ?? undefined;
         const forwardedFor = h.get("x-forwarded-for") ?? "";
         const ip = forwardedFor.split(",")[0]?.trim() || undefined;
@@ -80,7 +80,7 @@ export const authConfig = {
       user: { id?: string | null; email?: string | null };
     }) {
       try {
-        const h = headers();
+        const h = await headers();
         const userAgent = h.get("user-agent") ?? undefined;
         const forwardedFor = h.get("x-forwarded-for") ?? "";
         const ip = forwardedFor.split(",")[0]?.trim() || undefined;

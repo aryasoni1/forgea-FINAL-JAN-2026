@@ -9,13 +9,20 @@
       "@auth": ["./auth"],
       "@auth.config": ["./auth.config"],
       "@forgea/schema": ["../../packages/schema/src/index.ts"],
-      "@forgea/audit": ["../../packages/audit/src/audit.service.ts"]
+      "@forgea/audit": ["../../packages/audit/src/audit.service.ts"],
+      "lucide-react": ["./node_modules/lucide-react"],
+      "clsx": ["./node_modules/clsx"],
+      "tailwind-merge": ["./node_modules/tailwind-merge"],
+      "class-variance-authority": ["./node_modules/class-variance-authority"],
+      "vaul": ["./node_modules/vaul"],
+      "@radix-ui/*": ["./node_modules/@radix-ui/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "jsx": "preserve",
     "plugins": [
