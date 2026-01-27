@@ -10,12 +10,12 @@ import crypto from "node:crypto";
 import {
   AuditService,
   RequestContext,
-} from "../../packages/audit/src/audit.service";
+} from "@forgea/audit";
 import {
   AuditAction,
   AuditActorType,
   AuditResourceType,
-} from "../../packages/schema/src/audit-actions";
+} from "@forgea/schema";
 import { UserRole } from "@prisma/client";
 
 const credentialsSchema = z.object({

@@ -108,7 +108,7 @@ export function MonacoEditor({ selectedFile, isLocked }: MonacoEditorProps) {
 
         {/* Code */}
         <div className="flex-1 overflow-auto p-4">
-          <pre className="font-mono text-xs leading-5 text-gray-300 whitespace-pre-wrap break-words">
+          <pre className="font-mono text-xs leading-5 text-gray-300 whitespace-pre-wrap wrap-break-word">
             <code>{code}</code>
           </pre>
         </div>

@@ -5,7 +5,7 @@ import {
   UserRole,
   type AuditEvent,
   type SessionUser,
-} from "../../schema/src/types";
+} from "@forgea/schema";
 
 /**
  * Centralized route exposure policy (middleware must consume this; no hardcoding).
@@ -39,7 +39,11 @@ export const ROUTES = {
  * - Default deny
  * - RBAC only (no quotas / billing / rate-limits)
  */
-export const PERMISSIONS = {
+export const PERMISSIONS: {
+  byTier: Record<SubscriptionTier, readonly Capability[]>;
+  byRole: Record<UserRole, readonly Capability[]>;
+  byAdminPermission: Record<AdminPermission, readonly Capability[]>;
+} = {
   byTier: {
     [SubscriptionTier.FREE]: [Capability.ACCESS_FOUNDATIONAL_LABS],
     [SubscriptionTier.PRO]: [
@@ -78,7 +82,7 @@ export const PERMISSIONS = {
     [AdminPermission.USER_AUDIT]: [Capability.VIEW_INTEGRITY_LOGS],
     [AdminPermission.SUPER_ADMIN]: [],
   },
-} as const;
+};
 
 export type RouteRule =
   | {
