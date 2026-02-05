@@ -1,3 +1,11 @@
 chatgpt_input.txt
 forgea_full_backlog.csv
 .DS_Store
+# Next.js
+**/next-env.d.ts
+
+# TypeScript build cache
+**/*.tsbuildinfo
+
+# macOS
+.DS_Store
