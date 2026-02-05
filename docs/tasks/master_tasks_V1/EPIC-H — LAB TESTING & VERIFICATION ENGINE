@@ -1,0 +1,182 @@
+# EPIC-G — LAB TESTING & VERIFICATION ENGINE
+
+> Scope: **Deterministic verification, execution isolation, result recording, and truth enforcement**.
+> No GitHub repo management, no preview hosting.
+> This epic is **parallel-safe** with EPIC-A, EPIC-B, EPIC-C, EPIC-D, EPIC-E, EPIC-F, EPIC-H.
+
+---
+
+## EPIC METADATA
+
+* Epic ID: EPIC-G
+* Parallel Group: VERIFICATION
+* File Ownership:
+
+  * services/verification/**
+  * services/runner/**
+* Lock Policy: HARD LOCK (truth engine)
+* Blast Radius: SYSTEM
+
+---
+
+## FEATURE G1 — Verification Job Model
+
+1. Define VerificationJob schema
+2. Link VerificationJob to LabAttempt
+3. Store commit SHA (immutable)
+4. Store lab version reference
+5. Store job status (QUEUED, RUNNING, PASSED, FAILED, ERROR)
+6. Store created and completed timestamps
+7. Enforce one job per commit SHA
+
+---
+
+## FEATURE G2 — Job Queue & Scheduling
+
+8. Implement verification job queue
+9. Ensure FIFO execution per lab session
+10. Prevent parallel verification of same session
+11. Handle queue backpressure safely
+12. Retry jobs only on infra failure
+
+---
+
+## FEATURE G3 — Runner Isolation
+
+13. Design isolated execution environment
+14. Run verification in sandbox (container / VM)
+15. Restrict filesystem access
+16. Restrict network access
+17. Enforce CPU and memory limits
+18. Enforce execution timeout
+
+---
+
+## FEATURE G4 — Code Checkout & Preparation
+
+19. Checkout exact commit SHA
+20. Verify commit integrity
+21. Prepare working directory
+22. Inject verification configuration
+23. Prevent mutation of locked files
+
+---
+
+## FEATURE G5 — Verification Execution
+
+24. Execute verification command
+25. Capture stdout and stderr
+26. Capture exit code
+27. Measure execution duration
+28. Detect runtime crashes
+29. Distinguish test failure vs infra error
+
+---
+
+## FEATURE G6 — Result Evaluation
+
+30. Map exit codes to PASS / FAIL / ERROR
+31. Enforce deterministic result mapping
+32. Reject ambiguous outcomes
+33. Mark job final state immutably
+
+---
+
+## FEATURE G7 — Artifact Collection
+
+34. Collect verification logs
+35. Truncate oversized logs safely
+36. Collect diffs or test reports (if configured)
+37. Hash artifacts for integrity
+38. Store artifact metadata
+
+---
+
+## FEATURE G8 — Persistence & Immutability
+
+39. Persist verification result
+40. Persist artifacts immutably
+41. Prevent updates to completed jobs
+42. Enforce append-only storage
+
+---
+
+## FEATURE G9 — Failure & Abuse Handling
+
+43. Detect verification timeouts
+44. Detect resource exhaustion
+45. Detect forbidden system calls
+46. Fail job safely on violation
+47. Record abuse signals
+
+---
+
+## FEATURE G10 — Verification API Surface
+
+48. Expose verification status API
+49. Allow polling by LabSession
+50. Return normalized result payload
+51. Hide internal error details
+
+---
+
+## FEATURE G11 — Step-Based Verification Support
+
+52. Map verification checks to lab steps
+53. Enforce sequential step completion
+54. Reject out-of-order step verification
+55. Persist step-level verification state
+
+---
+
+## FEATURE G12 — Audit & Observability
+
+56. Log verification lifecycle events
+57. Log infra failures separately
+58. Emit metrics (duration, pass rate)
+59. Trace job execution boundaries
+
+---
+
+## FEATURE G13 — Safety & Invariants
+
+60. Enforce verification-before-preview invariant
+61. Enforce one active job per session
+62. Enforce commit SHA as single source of truth
+63. Block verification retries after PASS
+
+---
+
+## FEATURE G14 — Testing & Validation
+
+64. Test PASS scenario
+65. Test FAIL scenario
+66. Test infra ERROR scenario
+67. Test timeout handling
+68. Test artifact persistence
+69. Test immutability enforcement
+
+---
+
+## EPIC-G COMPLETION CRITERIA
+
+* Verification is deterministic and reproducible
+* Results immutable and audit-safe
+* Infra failures never produce false PASS
+* Preview never runs without PASS
+
+---
+
+## LOCK DECLARATION (POST-COMPLETION)
+
+After EPIC-G is marked DONE, the following are **HARD LOCKED**:
+
+* Verification runner logic
+* Result mapping rules
+* Invariant enforcement
+
+Any change requires explicit override approval.
+
+---
+
+# END OF EPIC-G

@@ -1,0 +1,22 @@
+# ------------------------------------------------------------------
+# Forgea CODEOWNERS (Placeholder — Solo Development)
+# Replace @aryasoni with @org/team when teams are formed
+# ------------------------------------------------------------------
+
+# GitHub configuration & workflows
+/.github/        @aryasoni
+
+# Application frontends
+/apps/           @aryasoni
+
+# Shared packages & libraries
+/packages/       @aryasoni
+
+# Backend services & APIs
+/services/       @aryasoni
+
+# Infrastructure, deployment, IaC
+/infra/          @aryasoni
+
+# Documentation & internal docs
+/docs/           @aryasoni

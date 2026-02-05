@@ -1,4 +1,10 @@
-import { db, FailureClass, LabStatus } from "@forgea/schema";
+import {
+  AuditActorType,
+  db,
+  FailureClass,
+  LabStatus,
+  transitionLabSession,
+} from "@forgea/schema";
 
 async function main() {
   const user = await db.user.upsert({
@@ -40,13 +46,23 @@ async function main() {
   });
 
   if (!existingSession) {
-    await db.labSession.create({
+    const created = await db.labSession.create({
       data: {
         userId: user.id,
         labId: lab.id,
         userForkUrl: "https://github.com/aryasoni1/forgea-lab-001",
-        status: LabStatus.STUCK,
       },
+    });
+
+    await transitionLabSession({
+      sessionId: created.id,
+      from: [LabStatus.IN_PROGRESS],
+      to: LabStatus.STUCK,
+      actor: {
+        id: "seed",
+        type: AuditActorType.SYSTEM,
+      },
+      reason: "seed_data",
     });
   }
 }

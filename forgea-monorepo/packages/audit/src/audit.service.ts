@@ -49,6 +49,14 @@ export type AuditMetadataMap = {
     failureReason?: string;
   };
 
+  [AuditAction.LAB_STATUS_TRANSITION]: {
+    labId: string;
+    labSessionId: string;
+    fromStatus: string;
+    toStatus: string;
+    reason?: string;
+  };
+
   [AuditAction.RESUME_GENERATED]: {
     sessionId: string;
     labId: string;
@@ -161,6 +169,9 @@ function severityForAction(action: AuditAction): AuditSeverity {
     case AuditAction.LAB_VERIFY_FAIL:
     case AuditAction.ADMIN_OVERRIDE:
       return AuditSeverity.HIGH;
+
+    case AuditAction.LAB_STATUS_TRANSITION:
+      return AuditSeverity.MEDIUM;
   }
 }
 

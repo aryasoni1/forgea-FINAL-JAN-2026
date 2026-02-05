@@ -11,3 +11,4 @@ export {
 
 export * from "./audit-actions";
 export * from "./db";
+export * from "./lab-session-lifecycle";

@@ -1,7 +1,12 @@
 import crypto from "crypto";
 import { db } from "@/lib/db";
 import { AuditService } from "@forgea/audit";
-import { AuditAction, AuditActorType, AuditResourceType } from "@forgea/schema";
+import {
+  AuditAction,
+  AuditActorType,
+  AuditResourceType,
+  transitionLabSession,
+} from "@forgea/schema";
 import { LabStatus } from "@prisma/client";
 
 type GitHubPushPayload = {
@@ -100,12 +105,15 @@ export async function POST(req: Request) {
     }
 
     // Update the session: set to IN_PROGRESS and bump lastActivityAt
-    await db.labSession.update({
-      where: { id: session.id },
+    await transitionLabSession({
+      sessionId: session.id,
+      from: [LabStatus.IN_PROGRESS, LabStatus.STUCK],
+      to: LabStatus.IN_PROGRESS,
       data: {
-        status: LabStatus.IN_PROGRESS,
         lastActivityAt: new Date(),
       },
+      actor: SYSTEM_ACTOR,
+      reason: "github_webhook_push",
     });
 
     return new Response("Success", { status: 200 });
