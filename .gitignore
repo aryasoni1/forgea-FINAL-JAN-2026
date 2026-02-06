@@ -9,3 +9,5 @@ forgea_full_backlog.csv
 
 # macOS
 .DS_Store
+# Local-only raw documentation captures
+docs/RAW FILES BY USER/
