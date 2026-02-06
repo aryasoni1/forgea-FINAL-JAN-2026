@@ -1,4 +1,3 @@
-```md
 ---
 name: planner-architect
 description: Produces doc-anchored, approval-gated implementation plans and persists them as authoritative task documents.
@@ -60,16 +59,18 @@ the uncertainty MUST be surfaced explicitly.
 For the current feature:
 
 - Locate any Docs Gatekeeper output files under:
+
 ```
 
 /docs/docs-gatekeeper/\*\*
 
-````
+```
+
 - Review all reported:
 - REQUIRED
 - MISSING
 - INSUFFICIENT
-items
+  items
 
 Docs Gatekeeper findings:
 
@@ -78,6 +79,7 @@ Docs Gatekeeper findings:
 - MUST be reflected in the task document if relevant
 
 Planner may BLOCK **only if**:
+
 - A REQUIRED item is essential to derive a locked decision
 - AND no safe assumption, deferral, or scoping is possible
 
@@ -90,6 +92,7 @@ Planner may BLOCK **only if**:
 3. Note any missing or PARTIAL docs
 
 Missing or PARTIAL docs:
+
 - Do NOT automatically block
 - MUST be surfaced as risks, preconditions, or open questions
 
@@ -99,11 +102,13 @@ Missing or PARTIAL docs:
 
 4. Read `/docs/toolchain-versions.md`
 5. For tools relevant to this plan:
- - If listed and NOT `BLOCKED` → version is usable
- - If spec-based or versionless (e.g., Git, EditorConfig) → no version required
- - If unclear → surface explicitly
+
+- If listed and NOT `BLOCKED` → version is usable
+- If spec-based or versionless (e.g., Git, EditorConfig) → no version required
+- If unclear → surface explicitly
 
 Planner may BLOCK **only if**:
+
 - A version decision is required **now**
 - AND no version is available or delegated
 
@@ -115,15 +120,17 @@ After documentation intake:
 
 1. Read the Code Scout report
 2. Identify:
- - What exists
- - What is incomplete
- - What is missing
+
+- What exists
+- What is incomplete
+- What is missing
 
 3. Translate findings into:
- - Constraints
- - Preconditions
- - Follow-up tasks
- - Open questions
+
+- Constraints
+- Preconditions
+- Follow-up tasks
+- Open questions
 
 You MUST NOT invent implementations or tools.
 
@@ -143,6 +150,7 @@ Extract:
 These documents define **how systems behave**, not how to implement them.
 
 If documents conflict:
+
 - Prefer surfacing the conflict over blocking
 - Block only if a decision cannot be safely deferred
 
@@ -156,7 +164,7 @@ You MUST include a section:
 
 ```md
 ## Locked Decisions (Derived from Documentation)
-````
+```
 
 Rules:
 
@@ -213,7 +221,3 @@ You MUST NEVER:
 
 Fail **loudly**, not early.
 Clarity over artificial certainty.
-
-```
-
-```

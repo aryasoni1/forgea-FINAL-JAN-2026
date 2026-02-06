@@ -16,7 +16,7 @@ Governs the loading of environment variables from `.env` files into `process.env
 
 - Doc type: INTERNAL / AUTHORITATIVE
 - Evidence basis: Official vendor documentation only
-- Version status: PINNED (v17.x)
+- Version status: PINNED (v16.x)
 
 ## Scope
 
@@ -25,24 +25,30 @@ Governs the loading of environment variables from `.env` files into `process.env
 
 ## Official Sources (Binding)
 
-- dotenv.md
+- https://github.com/motdotla/dotenv (v16.x)
 
 ## Evidence Coverage Matrix
 
 | Policy Area              | Source URL | Version Covered | Status  |
 | ------------------------ | ---------- | --------------- | ------- |
-| Initialization / Loading | dotenv.md  | v17.x           | COVERED |
+| Initialization / Loading | dotenv.md  | v16.x           | COVERED |
 | Parsing Rules            | dotenv.md  | v15.0.0+        | COVERED |
-| Configuration Options    | dotenv.md  | v17.x           | COVERED |
-| Preloading (CLI)         | dotenv.md  | v17.x           | COVERED |
-| ES6/ESM Usage            | dotenv.md  | v17.x           | COVERED |
+| Configuration Options    | dotenv.md  | v16.x           | COVERED |
+| Preloading (CLI)         | dotenv.md  | v16.x           | COVERED |
+| ES6/ESM Usage            | dotenv.md  | v16.x           | COVERED |
 
 ## Version & Compatibility
 
-- **Tool version:** v17.x (Source references v17.2.3 and v17.0.0 behavior),.
+- **Tool version:** v16.x (Primary pin: 16.4.x),.
 - **Feature Availability:**
   - Multiline values supported since v15.0.0.
   - Multiline comments supported since v15.0.0.
+
+## Forgea Usage Notes
+
+- Forgea uses dotenv only in non-Next.js runtimes that explicitly opt in.
+- The canonical list of env variables is maintained in `/forgea-monorepo/.env.example`.
+- Next.js apps MUST rely on Next.js built-in env loading instead of `dotenv`.
 
 ## Canonical Rules (Non-Negotiable)
 

@@ -62,6 +62,11 @@ Governs the construction of the Task Graph, defining how tasks depend on one ano
 - **Persistent Tasks:**
   - Tasks marked `persistent: true` (e.g., dev servers) MUST NOT be depended upon by other tasks; Turborepo will throw an error if a dependency exists.
   - Persistent tasks SHOULD usually set `"cache": false`.
+- **Lint Task Policy:**
+  - lint tasks MUST have no `outputs`.
+  - lint tasks MUST NOT declare `dependsOn`.
+  - lint tasks MUST set `cache: false`.
+  - lint exists only to validate source state, not produce artifacts.
 - **Root Tasks:** Tasks for the workspace root (e.g., global linting) MUST be registered in `turbo.json` using the `//#task` syntax (e.g., `//#lint:root`) or by defining a script in the root `package.json`.
 
 ## Prohibited Configurations

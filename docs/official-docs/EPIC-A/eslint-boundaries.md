@@ -1,7 +1,7 @@
 ---
 doc_id: eslint-boundaries
 tool: ESLint
-version_pinned: false
+version_pinned: true
 change_sensitivity: HIGH
 lifecycle: ACTIVE
 ---
@@ -41,10 +41,26 @@ Governs the enforcement of configuration scopes and directory-based rules using 
 ## Version & Compatibility
 
 - **Tool version:** v9.39.2 (Current documentation context).
+- **Boundary plugin:** eslint-plugin-boundaries v4.2.x (version pinned by toolchain policy).
 - **Configuration Format:** Flat Config (`eslint.config.js`) is the standard; Legacy Config is deprecated.
 - **Related tooling compatibility:**
   - **Node.js:** Requires `^18.18.0`, `^20.9.0`, or `>=21.1.0`.
   - **TypeScript Configs:** Native support available in Node.js >= 22.10.0 with flags; otherwise requires `jiti`.
+
+## Forgea Policy Additions (Binding)
+
+- **Pinned versions:**
+  - ESLint **9.39.x** (toolchain authority).
+  - eslint-plugin-boundaries **4.2.x** (toolchain authority).
+- **Canonical config location:** The shared Flat Config MUST live at:
+  - `forgea-monorepo/packages/config/eslint.config.js`
+- **No independent configs:** Apps and packages MUST reference the shared config and must NOT define separate rule sets.
+
+## CI Enforcement & Failure Semantics
+
+- **CI invocation:** Run ESLint through Turborepo in the verification workflow using `pnpm turbo run verify-and-lint` (or the equivalent lint task defined in `turbo.json`).
+- **Pinned tooling:** CI MUST use ESLint **9.39.x** and eslint-plugin-boundaries **4.2.x**, aligned with the toolchain policy.
+- **Failure behavior:** Any lint errors or non-zero exit codes MUST fail the workflow and block merges.
 
 ## Canonical Rules (Non-Negotiable)
 

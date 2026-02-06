@@ -14,6 +14,13 @@ This file records added or required internal docs created by Docs Gatekeeper.
   - Status: REQUIRED
   - Reason: Turborepo version must be pinned (repo uses `turbo: "latest"`) and pipeline behavior documented.
 
+Date: 2026-02-06
+
+- Epic / Feature: EPIC-B / B8 — GitHub Mapping Tables
+- Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B8_GitHub Mapping Tables.md
+- Status: ADDED
+- Reason: Docs Gatekeeper brief created to enumerate required official docs and internal doc gaps for GitHub account and repo mapping implementation.
+
 - Date: 2026-02-02
   - Epic / Feature: EPIC-A / A1 — Repository & Structure
   - Doc path: /docs/official-docs/eslint-boundaries.md
@@ -26,11 +33,35 @@ This file records added or required internal docs created by Docs Gatekeeper.
   - Status: REQUIRED
   - Reason: Central policy doc for repository boundaries, ownership, and enforcement mapping.
 
-- Date: 2026-02-04
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A5 — ESLint (Minimal & Safe)
+  - Doc path: /docs/official-docs/EPIC-A/eslint-boundaries.md
+  - Status: REQUIRED (EXTEND)
+  - Reason: Pin ESLint + eslint-plugin-boundaries versions and define the canonical shared Flat Config location.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A5 — ESLint (Minimal & Safe)
+  - Doc path: /docs/official-docs/EPIC-A/eslint-ci-guidelines.md
+  - Status: REQUIRED (EXTEND)
+  - Reason: CI lint guidance must document frozen installs, lint invocation, and missing ESLint remediation.
+
   - Epic / Feature: EPIC-A / A10 — Documentation & Architecture
   - Doc path: /docs/official-docs/turborepo.md
   - Status: REQUIRED (EXTEND)
   - Reason: Turborepo doc must include exact `turbo` semver, schema link, and remote-cache guidance before implementation.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A10 — Documentation & Architecture
+  - Doc path: /docs/official-docs/EPIC-A/turborepo.md
+  - Status: ADDED (EXTENDED)
+  - Reason: Documented pinned `turbo` 2.1.3, schema URL, local-only cache stance with optional remote cache guidance, and CI Node.js 20.x expectations.
+
+Date: 2026-02-06
+
+- Epic / Feature: EPIC-B / B1 — Database Setup
+- Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B1_Database Setup.md
+- Status: ADDED
+- Reason: New docs-gatekeeper brief for EPIC-B B1.
 
 - Date: 2026-02-04
   - Epic / Feature: EPIC-A / A9 — Developer Experience & Guardrails
@@ -175,6 +206,73 @@ This file records added or required internal docs created by Docs Gatekeeper.
   - Doc path: /docs/docs-gatekeeper/EPIC-A — MONOREPO & DEVELOPER TOOLING FOUNDATION/A11_Verification & Quality Gates.md
   - Status: ADDED
   - Reason: Docs Gatekeeper brief enumerating required version-pinned docs and internal doc extensions for cache, lint, and CI gating.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A11 — Verification & Quality Gates
+  - Doc path: /forgea-monorepo/.github/workflows/verification-and-quality-gates.yml
+  - Status: ADDED
+  - Reason: Added CI workflow to run `turbo run verify-and-lint` and `turbo run build` on Node.js 20.x as blocking checks.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A11 — Verification & Quality Gates
+  - Doc path: /docs/official-docs/EPIC-A/turborepo.md
+  - Status: ADDED (EXTENDED)
+  - Reason: Documented CI package manager usage, workflow path, and verification gate commands.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A11 — Verification & Quality Gates
+  - Doc path: /docs/official-docs/EPIC-A/eslint-boundaries.md
+  - Status: ADDED (EXTENDED)
+  - Reason: Documented pinned ESLint/boundaries versions and CI lint failure semantics.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A11 — Verification & Quality Gates
+  - Doc path: /docs/official-docs/EPIC-A/prettier.md
+  - Status: ADDED (EXTENDED)
+  - Reason: Documented pinned Prettier 3.2.x and CI check-only behavior.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A6 — Prettier (Formatting Only)
+  - Doc path: /docs/docs-gatekeeper/EPIC-A — MONOREPO & DEVELOPER TOOLING FOUNDATION/A6_Prettier (Formatting Only).md
+  - Status: ADDED
+  - Reason: Docs Gatekeeper brief tracked alongside Prettier configuration and CI enforcement docs.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A6 — Prettier (Formatting Only)
+  - Doc path: /docs/official-docs/prettier.md
+  - Status: ADDED
+  - Reason: Canonical Prettier policy and pinned version documented for the monorepo.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-A / A6 — Prettier (Formatting Only)
+  - Doc path: /docs/official-docs/prettier-ci-guidelines.md
+  - Status: ADDED
+  - Reason: CI formatting command and remediation steps documented for deterministic formatting.
+
+Date: 2026-02-06
+
+- Epic / Feature: EPIC-B / B9 — Admin & Control Tables
+- Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B9_Admin & Control Tables.md
+- Status: ADDED
+- Reason: Docs Gatekeeper brief created to enumerate required official docs and internal doc gaps for admin & control tables (FeatureFlag schema, AuditLog retention, and migration patterns).
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-B / B10 — Billing (Minimal MVP)
+  - Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B10_Billing (Minimal MVP).md
+  - Status: ADDED
+  - Reason: Docs Gatekeeper brief created to enumerate required official docs, internal docs to extend, and blockers for safe implementation.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-B / B12 — Audit Infrastructure
+  - Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B12_Audit Infrastructure.md
+  - Status: ADDED
+  - Reason: Docs Gatekeeper brief created to enumerate required external audit/compliance docs, missing internal schema, and blockers for safe implementation.
+
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-B / B13 — Environment Safety
+  - Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B13_Environment Safety.md
+  - Status: ADDED
+  - Reason: Docs Gatekeeper brief confirming presence/absence of official secrets/env references.
 ```
 
 ## Master Docs Registry (manual index)

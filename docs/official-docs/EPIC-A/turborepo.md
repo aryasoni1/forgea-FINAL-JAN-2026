@@ -42,11 +42,20 @@ Governs the configuration of the `turbo.json` file, task scheduling logic, cachi
 
 ## Version & Compatibility
 
-- **Tool version:** v2.x (Inferred from upgrade guides and schema versions defined in sources).
+- **Tool version:** v2.1.3 (Pinned to 2.1.3; upgrades outside >=2.0.0 <3.0.0 require policy review).
 - **Related tooling compatibility:**
   - Supports `npm`, `yarn`, `pnpm`, and `bun`.
   - Requires `packageManager` field in root `package.json` for v2.0+.
-  - JSON Schema versioning available via `https://v<version>.turborepo.dev/schema.json`.
+  - JSON Schema validation URL: `https://turborepo.org/schema.json` (versioned mirror: `https://v<version>.turborepo.dev/schema.json`).
+
+## Caching & CI Expectations
+
+- **Local-only caching (current):** Forgea relies on Turborepo’s local cache today; no remote cache provider is required or assumed by default.
+- **Remote cache (optional):** If enabled in the future, use an approved provider (e.g., Vercel or a self-hosted cache). Do not assume a provider without explicit approval.
+- **CI runtime:** Use a Node.js 20.x image compatible with Turbo 2.1.3. No Turbo-specific Docker image is required.
+- **CI package manager:** Use the package manager declared in the root `packageManager` field (pnpm) and run installs with `pnpm install --frozen-lockfile` per CI policy.
+- **Workflow location:** Verification gates run in `.github/workflows/verification-and-quality-gates.yml` using `turbo run verify-and-lint` and `turbo run build`.
+- **Strict mode reminders:** All tasks must declare `outputs`, and every env var used by a task must be listed in `env` or `globalEnv` (per strict mode rules).
 
 ## Canonical Rules (Non-Negotiable)
 

@@ -50,6 +50,10 @@ Governs the behavior, configuration, and failure conditions of pnpm when executi
 
 ## Canonical Rules (Non-Negotiable)
 
+- **Corepack Policy:**
+  - Developers MUST use Corepack locally to honor the `packageManager` pin.
+  - CI SHOULD use Corepack to ensure the pinned pnpm version is used.
+  - This document defines policy; CI wiring is handled in separate implementation tasks.
 - **Automatic Environment Detection:** pnpm automatically detects CI environments via standard environment variables (e.g., `CI`, `CONTINUOUS_INTEGRATION`, `BUILD_NUMBER`, `RUN_ID`, `gitlab-ci`, `TRAVIS`, etc.).
 - **Immutable Lockfiles:** In a detected CI environment, `pnpm install` DEFAULTS to `--frozen-lockfile`.
   - If a lockfile is present but out of sync with `package.json`, installation MUST fail,.

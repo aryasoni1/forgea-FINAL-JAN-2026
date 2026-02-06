@@ -52,6 +52,7 @@ Governs the configuration, execution, and failure conditions of ESLint within au
 - **Exit Code Determinism:**
   - Rules configured with `"error"` (severity 2) MUST trigger a non-zero exit code (1) upon violation.
   - Rules configured with `"warn"` (severity 1) do NOT trigger a non-zero exit code unless the `--max-warnings` flag is used,.
+- **Install Order:** CI MUST run `pnpm install --frozen-lockfile` before linting to ensure ESLint and plugins are present.
 - **Configuration Precedence:**
   - In the absence of a specific flag, ESLint searches for `eslint.config.js`, `eslint.config.mjs`, or `eslint.config.cjs` (in that order of priority) starting from the current working directory and traversing up to the root.
   - If multiple configuration files exist, JavaScript files take precedence over TypeScript files.
@@ -73,6 +74,9 @@ Governs the configuration, execution, and failure conditions of ESLint within au
 - **CLI Execution:**
   - Use `eslint [files]` to trigger linting.
   - Use `--config <file>` to bypass standard config lookup and enforce a specific file.
+- **Forgea lint path:**
+  - Run `pnpm run lint` from the repository root (delegates to `turbo run lint`).
+  - Package lint scripts MUST reference the shared config at `packages/config/eslint.config.js`.
 - **Strictness Flags:**
   - `--max-warnings <number>`: Forces exit code 1 if warnings exceed the threshold.
   - `--report-unused-disable-directives-severity error`: Escalates unused disable comments to hard failures.
@@ -86,6 +90,7 @@ Governs the configuration, execution, and failure conditions of ESLint within au
 - **Unmatched Patterns:** If a glob pattern finds no files (and `errorOnUnmatchedPattern` is not disabled), the process exits with an error.
 - **Cache Stagnation:** Using a stale cache after plugin updates may result in false positives or negatives until the cache file is removed.
 - **Circular Fixes:** Autofix logic may detect circular reference loops and abort.
+- **Missing ESLint Binary:** `eslint: command not found` indicates install steps were skipped or devDependencies were not installed.
 
 ## Cross-Doc Dependencies
 
@@ -118,3 +123,10 @@ Governs the configuration, execution, and failure conditions of ESLint within au
 - ESLint v9.0.0+ uses "Flat Config" by default; `eslintrc` is legacy.
 - `eslint-plugin-` packages must be installed as peer dependencies.
 - `eslint --init` can bootstrap configuration.
+
+## CI Remediation (Forgea)
+
+- If `eslint: command not found` occurs:
+  1. Re-run `pnpm install --frozen-lockfile`.
+  2. Verify the CI job does not skip devDependencies.
+  3. Confirm `eslint` and `eslint-plugin-boundaries` are present in root `devDependencies`.

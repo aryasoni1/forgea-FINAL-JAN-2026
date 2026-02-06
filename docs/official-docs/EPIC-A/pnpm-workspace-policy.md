@@ -53,6 +53,7 @@ Governs the configuration, dependency resolution protocols, and structure of mul
 ## Canonical Rules (Non-Negotiable)
 
 - **Workspace Root:** A workspace MUST be defined by a `pnpm-workspace.yaml` file in the repository root containing a `packages` glob list.
+- **Workspace Source of Truth:** `pnpm-workspace.yaml` is the authoritative definition of workspace membership. Any `package.json.workspaces` list MUST match it and is non-authoritative.
 - **Protocol Enforcement:** Internal dependencies MUST use the `workspace:` protocol (e.g., `workspace:*`, `workspace:~`).
   - Usage of this protocol strictly enforces local resolution; if the package is not found in the workspace, installation MUST fail.
 - **Publishing Transformation:** During `pack` or `publish`, `workspace:` dependencies are dynamically replaced by the corresponding version (for `workspace:*`) or semver range from the target package.
@@ -70,6 +71,7 @@ Governs the configuration, dependency resolution protocols, and structure of mul
 ## Enforcement
 
 - **Configuration File:** `pnpm-workspace.yaml` dictates workspace membership.
+- **Version Authority:** The pnpm version pin in `package.json` MUST match `/docs/toolchain-versions.md`. If they diverge, update the repository to match the toolchain document.
 - **Strictness Settings:**
   - `engineStrict`: Prevents installation of packages incompatible with the current Node version.
   - `packageManagerStrict`: Enforces the exact package manager version defined in `package.json`.

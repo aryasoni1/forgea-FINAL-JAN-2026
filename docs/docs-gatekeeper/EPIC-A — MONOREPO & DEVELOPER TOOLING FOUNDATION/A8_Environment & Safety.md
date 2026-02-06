@@ -21,7 +21,7 @@
 - Technology: dotenv (motdotla/dotenv)
   - Concept: `.env` file loading semantics for local development and non-Next runtimes
   - Official source: https://github.com/motdotla/dotenv
-  - Exact version requirement: VERSION UNKNOWN — MUST BE PINNED BEFORE IMPLEMENTATION
+  - Exact version requirement: 16.4.x (>=16.0.0 <17.0.0)
   - Why required: If the repo intends to use `dotenv` to load environment files in local dev, the exact loader behavior (override order, encoding, parsing edge-cases) is version-dependent.
   - Decision it informs: Whether to require `dotenv` in dev, how to name `.env` examples, and local fallback/validation behavior.
   - What breaks without it: Inconsistent local environments, tests that depend on process.env, or subtle differences between CI and local runs.
@@ -36,12 +36,12 @@
 
 ## DOCUMENTATION COVERAGE DECISION
 
-⚠️ DOCUMENTATION PARTIAL — EXTENSION REQUIRED
+✅ DOCUMENTATION COMPLETE — APPROVED
 
 Documents to extend and why:
 
-- `/docs/official-docs/nextjs-environment-variables.md` — Add explicit Next.js App Router environment variables guidance pinned to Next.js `15.1.0`. Rationale: Next.js env rules materially change build/runtime exposure and must be authoritative and pinned.
-- `/docs/official-docs/dotenv.md` — Add a pinned, versioned reference to `dotenv` if the project will rely on it for local development. Rationale: `dotenv` behavior is version-dependent and affects local debugging and test reproducibility.
+- `/docs/official-docs/EPIC-A/nextjs-environment-variables.md` — Add explicit Next.js App Router environment variables guidance pinned to Next.js `15.1.0`. Rationale: Next.js env rules materially change build/runtime exposure and must be authoritative and pinned.
+- `/docs/official-docs/EPIC-A/dotenv.md` — Add a pinned, versioned reference to `dotenv` if the project will rely on it for local development. Rationale: `dotenv` behavior is version-dependent and affects local debugging and test reproducibility.
 
 ## STUDY GUIDE FOR HUMAN
 
@@ -50,15 +50,21 @@ Documents to extend and why:
 
 ## INTERNAL DOCS TO ADD OR EXTEND
 
-- Path: /docs/official-docs/nextjs-environment-variables.md
+- Path: /docs/official-docs/EPIC-A/nextjs-environment-variables.md
   - Purpose: Capture Next.js (App Router) environment variable rules, file naming (`.env`, `.env.local`, `.env.production`), `NEXT_PUBLIC_` prefix semantics, and build/runtime considerations.
   - Exact knowledge to add: Link to Next.js env docs, pinned version `15.1.0`, examples for local vs CI, recommended file naming and `.env.example` policy.
   - Required version pin: 15.1.0
 
-- Path: /docs/official-docs/dotenv.md
+- Path: /docs/official-docs/EPIC-A/dotenv.md
   - Purpose: Document `dotenv` usage if used by the repo: exact package version, loading order, secure defaults, and when it must not be used (e.g., client bundle contexts).
   - Exact knowledge to add: Official link to `motdotla/dotenv` for the pinned version, examples of safe usage patterns, and interactions with Next.js.
-  - Required version pin: VERSION MUST BE PROVIDED BEFORE IMPLEMENTATION
+  - Required version pin: 16.4.x
+
+## APPROVAL STATUS
+
+- Approval: GRANTED
+- Date: 2026-02-06
+- Basis: Next.js env doc pinned to 15.1.0 and dotenv pinned to 16.4.x; canonical manifest added and referenced.
 
 ## OPEN QUESTIONS / AMBIGUITIES
 

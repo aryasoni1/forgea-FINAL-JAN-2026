@@ -1,7 +1,7 @@
 ---
 doc_id: typescript-compiler-semantics
 tool: TypeScript
-version_pinned: false
+version_pinned: true
 change_sensitivity: HIGH
 lifecycle: ACTIVE
 ---
@@ -16,7 +16,7 @@ Governs the behavior of the TypeScript compiler (`tsc`), including configuration
 
 - Doc type: INTERNAL / AUTHORITATIVE
 - Evidence basis: Official vendor documentation only
-- Version status: BLOCKED – VERSION NOT SPECIFIED (Source documents features spanning v1.0 to v5.8).
+- Version status: PINNED (TypeScript 5.9.3)
 
 ## Scope
 
@@ -42,13 +42,20 @@ Governs the behavior of the TypeScript compiler (`tsc`), including configuration
 
 ## Version & Compatibility
 
-- **Tool version:** Sources reference features up to TypeScript 5.8 (e.g., `node18` module mode replacement).
+- **Tool version:** 5.9.3 (pinned per `/docs/toolchain-versions.md`).
 - **Runtime Compatibility:**
   - Node.js v12+ requires `moduleResolution: "node16"` or `"nodenext"` for correct ESM/CJS interop.
   - Node.js v23.6+ supports `erasableSyntaxOnly` mode for direct execution.
 
 ## Canonical Rules (Non-Negotiable)
 
+- **Canonical Base Location:** The canonical TypeScript base configuration lives at `forgea-monorepo/packages/config/tsconfig.base.json`. It MUST NOT be relocated.
+- **Inheritance Requirement:** All root, app, and package `tsconfig.json` files MUST extend the canonical base config.
+- **Allowed Overrides:**
+  - MUST NOT override: `target`, `module`, `moduleResolution`, `strict`, `noEmit`, `useDefineForClassFields`, `skipLibCheck`, `incremental`.
+  - MAY override: `lib`, `jsx`, `types`, `baseUrl`, `paths` (additive), `outDir`, `rootDir`, `references`.
+  - Any other override requires explicit documentation and review.
+- **moduleResolution Casing:** `moduleResolution` MUST be set to `"Bundler"` (capital B) everywhere.
 - **Configuration Inheritance:**
   - `extends` allows a configuration file to inherit from another; the base file is loaded first, then overridden by the inheriting file.
   - `files`, `include`, and `exclude` from the inheriting file **overwrite** (do not merge with) those from the base config.

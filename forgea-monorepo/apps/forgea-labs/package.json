@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "NEXT_DISABLE_TURBOPACK=1 next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint --config ../../packages/config/eslint.config.js ."
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",

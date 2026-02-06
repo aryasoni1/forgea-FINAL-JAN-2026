@@ -2,6 +2,13 @@
 
 Forgea is a work simulator + proof engine. This repository is a pnpm + Turborepo monorepo containing apps, shared packages, and backend services.
 
+## Developer Onboarding (Start Here)
+
+- Node.js is pinned via [.nvmrc](.nvmrc) and documented in [docs/official-docs/node-version-policy.md](../docs/official-docs/node-version-policy.md).
+- Editor defaults are defined in [.editorconfig](.editorconfig) and documented in [docs/official-docs/editorconfig.md](../docs/official-docs/editorconfig.md).
+- Environment variables are described in [.env.example](.env.example) with additional context in [docs/official-docs/EPIC-A/nextjs-environment-variables.md](../docs/official-docs/EPIC-A/nextjs-environment-variables.md).
+- Guardrails and review expectations are in [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Repository Structure
 
 - apps/ — Next.js app-router apps
@@ -11,18 +18,29 @@ Forgea is a work simulator + proof engine. This repository is a pnpm + Turborepo
 
 ## Tooling Baseline
 
-- Node.js: 20.x (LTS)
-- pnpm: 10.x
+- Node.js: 20.11.1 (pinned)
+- pnpm: 10.28.1
+- Turborepo: ^2.1.3
 - TypeScript: 5.9.3
 - ESLint: 9.x (Flat Config)
+
+## Scripts & Commands
+
+These are the canonical monorepo commands. Each `pnpm <command>` delegates to `turbo run <task>` at the root.
+
+- `pnpm install` — install workspace dependencies using pnpm 10.28.1
+- `pnpm dev` — runs `turbo run dev`
+- `pnpm build` — runs `turbo run build`
+- `pnpm lint` — runs `turbo run lint`
+- `pnpm test` — runs `turbo run test`
 
 ## Workspace Membership
 
 Workspace discovery is defined in pnpm-workspace.yaml and includes:
 
-- apps/*
-- packages/*
-- services/*
+- apps/\*
+- packages/\*
+- services/\*
 
 ## TypeScript Configuration
 
@@ -51,4 +69,3 @@ CODEOWNERS is located at .github/CODEOWNERS and defines ownership for top-level 
 3. Update eslint.config.js to add the new app/service element type.
 4. Update .github/CODEOWNERS to add explicit ownership.
 5. Ensure pnpm-workspace.yaml includes the top-level directory.
-

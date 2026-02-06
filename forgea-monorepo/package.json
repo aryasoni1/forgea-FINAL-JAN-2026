@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "packageManager": "pnpm@10.28.1",
+  "engines": {
+    "node": ">=20.11.0 <21"
+  },
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -11,7 +14,10 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "prettier:check": "pnpm -w exec prettier --check \"**/*.{js,ts,tsx,jsx,json,md,css,scss,html}\"",
+    "prettier:write": "pnpm -w exec prettier --write \"**/*.{js,ts,tsx,jsx,json,md,css,scss,html}\""
   },
   "devDependencies": {
     "@types/node": "^25.0.10",
@@ -19,7 +25,8 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "9.39.2",
     "eslint-plugin-boundaries": "4.2.1",
-    "turbo": "latest",
+    "prettier": "3.2.0",
+    "turbo": "^2.1.3",
     "typescript": "5.9.3"
   }
 }

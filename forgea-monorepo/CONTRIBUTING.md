@@ -1,5 +1,21 @@
 # Contributing
 
+## Guardrails (Read Before Changing Files)
+
+- Follow the implementer guardrail in [.github/agents/implementer.md](../.github/agents/implementer.md). Do not edit files listed there unless a task explicitly allows it.
+- Do not include secrets or real credentials in documentation or example files.
+- Keep onboarding content in [README.md](README.md) and guardrails here to avoid duplication.
+
+## Runtime & Editor Policy
+
+- Node.js pin and engine range are documented in [docs/official-docs/node-version-policy.md](../docs/official-docs/node-version-policy.md).
+- Editor defaults are defined in [.editorconfig](.editorconfig) and documented in [docs/official-docs/editorconfig.md](../docs/official-docs/editorconfig.md).
+
+## Review Expectations
+
+- Changes that affect repository structure or guardrails require review by repo owners.
+- Keep diffs minimal and avoid unrelated formatting changes.
+
 ## Scope and Safety
 
 - Do not change application logic or runtime behavior when working on repository structure tasks.
@@ -14,7 +30,7 @@
 ## Workspace Configuration
 
 - pnpm-workspace.yaml is the source of truth for workspace membership.
-- apps/*, packages/*, and services/* must be included.
+- apps/_, packages/_, and services/\* must be included.
 
 ## TypeScript Configuration
 
@@ -38,4 +54,3 @@ Any exception must be explicit, minimal, and documented with the reason and scop
 3. Update eslint.config.js to include a new element rule for the new app or service.
 4. Update .github/CODEOWNERS to add explicit ownership.
 5. Keep pnpm-workspace.yaml aligned with workspace membership.
-

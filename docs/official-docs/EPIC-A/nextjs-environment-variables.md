@@ -16,7 +16,7 @@ Governs the loading mechanism, scoping rules, build-time inlining behavior, and 
 
 - Doc type: INTERNAL / AUTHORITATIVE
 - Evidence basis: Official vendor documentation only
-- Version status: PINNED (v16.1.6)
+- Version status: PINNED (v15.1.0)
 
 ## Scope
 
@@ -25,23 +25,43 @@ Governs the loading mechanism, scoping rules, build-time inlining behavior, and 
 
 ## Official Sources (Binding)
 
-- nextjs-env.md (Next.js Guides: Environment Variables)
+- https://nextjs.org/docs/app/building-your-application/environment-variables (v15.1.0)
 
 ## Evidence Coverage Matrix
 
-| Policy Area                       | Source URL    | Version Covered | Status  |
-| --------------------------------- | ------------- | --------------- | ------- |
-| File Loading & Location           | nextjs-env.md | v16.1.6         | COVERED |
-| Browser Exposure (`NEXT_PUBLIC_`) | nextjs-env.md | v16.1.6         | COVERED |
-| Build-time Inlining               | nextjs-env.md | v16.1.6         | COVERED |
-| Load Order Precedence             | nextjs-env.md | v16.1.6         | COVERED |
-| Test Environment                  | nextjs-env.md | v16.1.6         | COVERED |
-| External Tooling (`@next/env`)    | nextjs-env.md | v16.1.6         | COVERED |
+| Policy Area                       | Source URL  | Version Covered | Status  |
+| --------------------------------- | ----------- | --------------- | ------- |
+| File Loading & Location           | Next.js Env | v15.1.0         | COVERED |
+| Browser Exposure (`NEXT_PUBLIC_`) | Next.js Env | v15.1.0         | COVERED |
+| Build-time Inlining               | Next.js Env | v15.1.0         | COVERED |
+| Load Order Precedence             | Next.js Env | v15.1.0         | COVERED |
+| Test Environment                  | Next.js Env | v15.1.0         | COVERED |
+| External Tooling (`@next/env`)    | Next.js Env | v15.1.0         | COVERED |
 
 ## Version & Compatibility
 
-- **Tool version:** v16.1.6.
+- **Tool version:** v15.1.0.
 - **Feature Availability:** Support for `.env` files and `NEXT_PUBLIC_` prefix was introduced in v9.4.0.
+
+## Forgea Environment Manifest (Canonical)
+
+This manifest is the authoritative list of environment variables referenced in the Forgea monorepo.
+The canonical example file is at `/forgea-monorepo/.env.example`.
+
+| Variable                         | Required         | Scope       | Notes                                                      |
+| -------------------------------- | ---------------- | ----------- | ---------------------------------------------------------- |
+| `DATABASE_URL`                   | Yes              | Server-only | Prisma / DB connectivity. Must fail-closed if missing.     |
+| `FORGEA_AUDIT_SINK_URL`          | No               | Server-only | Optional audit sink endpoint. No-op if unset.              |
+| `FORGEA_SECURITY_ALERT_SINK_URL` | No               | Server-only | Optional security alert sink endpoint. No-op if unset.     |
+| `GITHUB_ID`                      | No               | Server-only | GitHub OAuth client ID for Forgea Labs.                    |
+| `GITHUB_SECRET`                  | No               | Server-only | GitHub OAuth client secret for Forgea Labs.                |
+| `GITHUB_WEBHOOK_SECRET`          | No               | Server-only | GitHub webhook signature secret.                           |
+| `NODE_ENV`                       | Runtime-provided | Server-only | Provided by Node.js/Next.js; do not expose to the browser. |
+
+### Client Exposure
+
+- No Forgea variables are intended for client exposure at this time.
+- If a variable ever must be client-visible, it MUST be prefixed with `NEXT_PUBLIC_` and documented here.
 
 ## Canonical Rules (Non-Negotiable)
 

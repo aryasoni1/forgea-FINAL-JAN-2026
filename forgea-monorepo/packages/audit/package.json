@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "scripts": {
+    "lint": "eslint --config ../config/eslint.config.js ."
+  },
   "dependencies": {
     "@forgea/schema": "workspace:*",
     "@prisma/client": "^7.3.0"

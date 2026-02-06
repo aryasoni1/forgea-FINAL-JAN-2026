@@ -42,7 +42,7 @@ Governs the configuration of the `turbo.json` file, task scheduling topology, ca
 
 ## Version & Compatibility
 
-- **Tool version:** v2.x (Explicitly referenced in upgrade guides).
+- **Tool version:** v2.1.x (Pinned per `/docs/toolchain-versions.md`).
 - **Related tooling compatibility:**
   - **Package Manager:** The root `package.json` **MUST** define a `packageManager` field to ensure deterministic behavior.
   - **Schema:** Versioned schemas available via `https://v<version>.turborepo.dev/schema.json`.
@@ -51,6 +51,7 @@ Governs the configuration of the `turbo.json` file, task scheduling topology, ca
 
 - **Root Configuration:** A `turbo.json` file MUST exist in the workspace root.
 - **Task Mapping:** Keys in the `tasks` object MUST match the script names defined in `package.json` files to be executable.
+- **Remote Cache Policy:** Remote caching is OPTIONAL. This repository uses local caching only. No remote cache provider is required or configured in EPIC-A. Remote cache configuration is deferred to a future Infra/CI epic.
 - **Dependency Topology:**
   - **Topological (`^`):** A task dependency prefixed with `^` (e.g., `"dependsOn": ["^build"]`) MUST wait for the same task in the package's dependencies to complete.
   - **Same-Package:** A task dependency without a prefix MUST wait for the named task _within the same package_ to complete.
@@ -78,6 +79,7 @@ Governs the configuration of the `turbo.json` file, task scheduling topology, ca
 - **Process Isolation (Strict Mode):** The runtime process for a task is stripped of all environment variables NOT declared in `turbo.json` (unless `passThroughEnv` is used),.
 - **CLI Gatekeeping:** The CLI enforces the presence of `packageManager` in `package.json` (unless explicitly disabled via `--dangerously-disable-package-manager-check`).
 - **Task Graph Execution:** The CLI prevents downstream tasks from starting until all `dependsOn` requirements are satisfied.
+- **Version Pinning:** The root `package.json` MUST pin `turbo` to `2.1.x` per toolchain policy.
 
 ## Failure Modes
 

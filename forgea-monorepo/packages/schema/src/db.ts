@@ -1,5 +1,6 @@
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@prisma/client';
+import { validateEnv } from '../../config/src/env';
 
 const globalForPrisma = globalThis as unknown as {
   prisma?: PrismaClient;
@@ -14,16 +15,18 @@ let prisma = globalForPrisma.prisma;
 function initPrisma(): PrismaClient {
   if (prisma) return prisma;
 
+  validateEnv();
   const datasourceUrl = process.env.DATABASE_URL;
+
   if (!datasourceUrl) {
-    throw new Error("DATABASE_URL is not set");
+    throw new Error('DATABASE_URL is not set');
   }
 
   prisma = new PrismaClient({
     adapter: new PrismaPg({ connectionString: datasourceUrl }),
   });
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
     globalForPrisma.prisma = prisma;
   }
 
@@ -34,6 +37,6 @@ export const db = new Proxy({} as PrismaClient, {
   get(_target, prop) {
     const client = initPrisma();
     const value = client[prop as keyof PrismaClient];
-    return typeof value === "function" ? value.bind(client) : value;
+    return typeof value === 'function' ? value.bind(client) : value;
   },
 });

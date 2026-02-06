@@ -1,7 +1,7 @@
 ---
 doc_id: typescript-tsconfig-guidelines
 tool: TypeScript
-version_pinned: false
+version_pinned: true
 change_sensitivity: HIGH
 lifecycle: ACTIVE
 ---
@@ -16,7 +16,7 @@ Governs the structure, inheritance logic, compiler options, and file inclusion s
 
 - Doc type: INTERNAL / AUTHORITATIVE
 - Evidence basis: Official vendor documentation only
-- Version status: BLOCKED – VERSION NOT SPECIFIED
+- Version status: PINNED (TypeScript 5.9.3)
 
 ## Scope
 
@@ -42,13 +42,20 @@ Governs the structure, inheritance logic, compiler options, and file inclusion s
 
 ## Version & Compatibility
 
-- **Tool version:** Sources cover features up to TypeScript 5.8 (e.g., `node18` module mode replacement, `erasableSyntaxOnly`).
+- **Tool version:** 5.9.3 (pinned per `/docs/toolchain-versions.md`).
 - **Runtime Compatibility:**
   - Node.js v23.6+ supports running TypeScript directly if `erasableSyntaxOnly` constraints are met.
   - `module: "nodenext"` implies `target: "esnext"`.
 
 ## Canonical Rules (Non-Negotiable)
 
+- **Canonical Base Location:** The canonical TypeScript base configuration lives at `forgea-monorepo/packages/config/tsconfig.base.json` and MUST NOT be relocated.
+- **Inheritance Requirement:** All root, app, and package `tsconfig.json` files MUST extend the canonical base.
+- **Allowed Overrides:**
+  - MUST NOT override: `target`, `module`, `moduleResolution`, `strict`, `noEmit`, `useDefineForClassFields`, `skipLibCheck`, `incremental`.
+  - MAY override: `lib`, `jsx`, `types`, `baseUrl`, `paths` (additive), `outDir`, `rootDir`, `references`.
+  - Any other override requires explicit documentation and review.
+- **moduleResolution Casing:** `moduleResolution` MUST be set to `"Bundler"` (capital B) everywhere.
 - **Configuration Inheritance:**
   - A `tsconfig.json` may inherit from another via `extends`.
   - The base configuration is loaded first, then overridden by the inheriting file.

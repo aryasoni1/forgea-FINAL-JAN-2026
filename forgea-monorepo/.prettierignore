@@ -1,0 +1,23 @@
+# Build / output
+.next/
+out/
+dist/
+build/
+public/assets/
+
+# Dependencies + caches
+node_modules/
+.turbo/
+.cache/
+.vscode/
+.vercel/
+.DS_Store
+
+# Generated artifacts
+coverage/
+*.min.js
+*.bundle.js
+
+# Local temp
+tmp/
+*.log

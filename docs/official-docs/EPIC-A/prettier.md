@@ -42,7 +42,7 @@ Governs the automated code formatting rules, configuration resolution logic, and
 
 ## Version & Compatibility
 
-- **Tool version:** v3.x (Source references removal of APIs in v3.0.0 and v3.x specific features),.
+- **Tool version:** v3.2.x (Pinned to the 3.2 release line),.
 - **Runtime Requirement:** Node.js (Version dependent on Prettier release; v3.x generally requires modern Node).
 - **Related tooling compatibility:**
   - **ESLint:** Requires `eslint-config-prettier` to disable conflicting formatting rules.
@@ -64,6 +64,12 @@ Governs the automated code formatting rules, configuration resolution logic, and
   - `parser` MUST NOT be defined at the top level of the configuration; it is permitted ONLY within `overrides`.
 - **Print Width Semantics:** `printWidth` is a guideline for preferred line length, NOT a hard upper limit (unlike linters' `max-len`).
 - **CI Enforcement:** Continuous Integration pipelines MUST use the `--check` flag to verify formatting without modifying files,.
+
+## CI Enforcement & Failure Semantics
+
+- **CI invocation:** Run `pnpm prettier:check` (or `pnpm -w exec prettier --check ...`) in CI.
+- **Pinned tooling:** CI MUST use Prettier **3.2.x**, aligned with toolchain policy.
+- **Failure behavior:** Any formatting issues MUST fail the workflow; CI must not rewrite files.
 
 ## Prohibited Configurations
 
