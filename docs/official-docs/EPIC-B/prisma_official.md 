@@ -1,0 +1,107 @@
+---
+doc_id: prisma-official
+tool: Prisma
+version_pinned: true
+change_sensitivity: HIGH
+lifecycle: ACTIVE
+---
+
+# Prisma — CLI, Schema, and Datasource Policy
+
+## Purpose
+Governs the initialization of the Prisma ORM environment, the structural conventions of the `schema.prisma` file, datasource connection patterns, and the generation of the Prisma Client artifact.
+
+## Status
+- Doc type: INTERNAL / AUTHORITATIVE
+- Evidence basis: Official vendor documentation only
+- Version status: PINNED (v7.3.0)
+
+## Scope
+- Applies to: `prisma/schema.prisma`, `prisma.config.ts` (v7+), CLI commands (`init`, `generate`, `validate`, `format`), and datasource configuration.
+- Does NOT apply to: Runtime query logic (CRUD) or specific migration workflows (covered in separate docs).
+
+## Official Sources (Binding)
+- https://www.prisma.io/docs/orm/reference/prisma-schema
+- https://www.prisma.io/docs/orm/reference/prisma-cli
+- https://www.prisma.io/docs/orm/prisma-client
+- https://www.prisma.io/docs/orm/prisma-schema/data-model
+- https://www.prisma.io/docs/orm/prisma-schema/datasource
+
+## Evidence Coverage Matrix
+
+| Policy Area | Source URL | Version Covered | Status |
+|------------|-----------|-----------------|--------|
+| Initialization (`init`) | https://www.prisma.io/docs/orm/reference/prisma-cli | v7.3.0 | COVERED |
+| Schema Structure | https://www.prisma.io/docs/orm/reference/prisma-schema | v7.3.0 | COVERED |
+| Datasource Constraints | https://www.prisma.io/docs/orm/prisma-schema/datasource | v7.3.0 | COVERED |
+| Client Generation | https://www.prisma.io/docs/orm/prisma-client | v7.3.0 | COVERED |
+| Model Definitions | https://www.prisma.io/docs/orm/prisma-schema/data-model | v7.3.0 | COVERED |
+
+## Version & Compatibility
+- **Tool Version:** Prisma ORM 7.3.0.
+- **Runtime Compatibility:** Node.js 20.x LTS per repo runtime policy.
+
+## Canonical Rules (Non-Negotiable)
+
+- **Single Datasource:** A Prisma schema MUST contain exactly *one* `datasource` block.
+- **Unique Identification:** Every model MUST be uniquely identifiable via at least one of the following attributes: `@id`, `@@id`, `@unique`, or `@@unique`.
+- **Generator Output:** The `generator client` block MUST specify `output = "../../node_modules/@prisma/client"`.
+- **Environment Variable Usage:** Database connection URLs MUST be retrieved using the `env()` function in `schema.prisma`; hardcoding secrets is prohibited.
+- **Datasource Authority:** `schema.prisma` is the canonical datasource source; `prisma.config.mjs` MUST NOT define or override `datasource.url`.
+- **Comment Syntax:**
+    - `///` (Triple slash) MUST be used for comments intended to appear in the AST (Abstract Syntax Tree) and generated documentation.
+    - `//` (Double slash) MUST be used for internal reader-only comments.
+- **Naming Conventions:**
+    - Models SHOULD use PascalCase.
+    - Table/Collection mapping MUST use `@@map` (model level) or `@map` (field level) if the database name differs from the Prisma naming convention.
+- **MongoDB ID Requirement:** MongoDB models MUST define a single field with `@id`, `@map("_id")`, and type `String` or `ObjectId`.
+
+## Prohibited Configurations
+
+- ❌ **Hardcoded Secrets:** Explicit connection strings in `schema.prisma` are prohibited.
+- ❌ **Ambiguous IDs:** Models without a primary key (`@id`) or unique constraint are invalid.
+- ❌ **Default Output Path (v7+):** Omitting the `output` field in `generator client` is prohibited.
+- ❌ **Composite IDs in MongoDB:** The `@@id` attribute is PROHIBITED for MongoDB connectors.
+- ❌ **Optional List Fields:** Combined type modifiers like `String[]?` are not supported.
+
+## Enforcement
+
+- **Validation Command:** `prisma validate` checks the schema for syntax errors and missing requirements.
+- **Formatting Command:** `prisma format` enforces standard alignment (2-space separation, `=` alignment).
+- **CLI Warnings:** `prisma generate` emits warnings for missing `output` paths in v6.6.0+.
+- **Strict Parsing:** `prisma init` does not interpret existing files; it creates a new directory structure.
+
+## Failure Modes
+
+- **Generation Failure:** If `schema.prisma` changes are not followed by `prisma generate`, the client code will be out of sync, leading to runtime errors.
+- **Drift:** modifying the database schema manually without updating `schema.prisma` causes schema drift, detectable via `prisma migrate diff`.
+- **Pruning Data Loss:** If `output` defaults to `node_modules`, package managers may prune the client, requiring regeneration.
+
+## Cross-Doc Dependencies
+- Depends on:
+    - `/docs/official-docs/node-runtime-policy.md` (Node.js version requirements).
+    - `/docs/official-docs/typescript-tsconfig-guidelines.md` (ESM configuration).
+- Conflicts with:
+    - NONE
+
+## Planner Extraction Hints (Non-Human)
+- `schema.prisma` is the canonical datasource source; `prisma.config.mjs` does not define the datasource URL.
+- If `generator.output` is missing, STATUS = WARNING (v6) / ERROR (v7).
+- `@@id` implies Relational DB; INVALID for MongoDB.
+- `env("DATABASE_URL")` is the required pattern for connection strings in `schema.prisma`.
+
+## Verification Checklist
+- [ ] `schema.prisma` contains exactly one `datasource` block.
+- [ ] `generator client` defines `output = "../../node_modules/@prisma/client"`.
+- [ ] All models have a valid `@id` or `@unique` identifier.
+- [ ] No hardcoded connection strings exist in the schema.
+- [ ] `prisma validate` returns success.
+
+## Non-Decisions
+- This document does not select a specific database provider (PostgreSQL vs MySQL vs MongoDB).
+- This document does not define the specific content of the `.env` file, only its usage pattern.
+
+## Notes
+- `prisma init --db` sets up a Prisma Postgres instance by default.
+- `prisma format` alignment rules are fixed and cannot be configured.
+- `cuid()` and `uuid()` are Prisma-level functions, not database-level, unless using native types.

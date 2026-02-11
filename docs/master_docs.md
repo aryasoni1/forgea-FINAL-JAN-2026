@@ -63,6 +63,12 @@ Date: 2026-02-06
 - Status: ADDED
 - Reason: New docs-gatekeeper brief for EPIC-B B1.
 
+- Date: 2026-02-06
+  - Epic / Feature: EPIC-B / B2 — Prisma Setup & Migrations
+  - Doc path: /docs/docs-gatekeeper/EPIC-B — DATABASE CORE & HARDENING/B2_Prisma Setup & Migrations.md
+  - Status: ADDED
+  - Reason: Docs Gatekeeper brief created to verify official Prisma docs and capture registry updates.
+
 - Date: 2026-02-04
   - Epic / Feature: EPIC-A / A9 — Developer Experience & Guardrails
   - Doc path: /docs/official-docs/node-version-policy.md

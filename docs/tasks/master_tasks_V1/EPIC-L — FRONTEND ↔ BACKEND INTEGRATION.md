@@ -1,0 +1,144 @@
+# EPIC-L — FRONTEND ↔ BACKEND INTEGRATION
+
+> Scope: **Strict synchronization between frontend UI and backend truth**.
+> Frontend renders only; backend decides state.
+> This epic is **parallel-safe** with all core epics.
+
+---
+
+## EPIC METADATA
+
+- Epic ID: EPIC-L
+- Parallel Group: INTEGRATION
+- File Ownership:
+  - apps/web/\*\*
+  - apps/lab-ui/\*\*
+  - services/api/\*\*
+
+- Lock Policy: SOFT LOCK (contracts stable, UI flexible)
+- Blast Radius: ZONE
+
+---
+
+## FEATURE L1 — Authentication & Session Wiring
+
+1. Integrate frontend auth state with backend session API
+2. Fetch authenticated user context on app load
+3. Handle unauthenticated access redirects
+4. Refresh session state on page reload
+5. Invalidate frontend session on backend logout
+
+---
+
+## FEATURE L2 — Global App State Synchronization
+
+6. Establish global state store for user, session, and role
+7. Sync frontend state with backend truth on mount
+8. Prevent frontend state mutation without backend confirmation
+9. Reset state on session termination
+
+---
+
+## FEATURE L3 — Lab Session Integration
+
+10. Create lab session from frontend action
+11. Fetch LabSession details after creation
+12. Handle session invalid or expired states
+13. Lock lab UI when session ends
+14. Display session status consistently across views
+
+---
+
+## FEATURE L4 — Lab File & Editor Integration
+
+15. Fetch virtual file tree from backend
+16. Fetch file content via backend APIs
+17. Persist editor changes through validated backend endpoints
+18. Handle backend file access errors gracefully
+19. Sync editor state after backend rejection
+
+---
+
+## FEATURE L5 — Push, Verification & Status Sync
+
+20. Poll verification job status from backend
+21. Display real-time verification state in UI
+22. Sync verification results after push events
+23. Handle duplicate or delayed webhook outcomes
+24. Prevent UI desync during verification
+
+---
+
+## FEATURE L6 — Snapshot Preview Integration
+
+25. Request preview URL from backend
+26. Gate preview access by verification status
+27. Handle missing or expired previews
+28. Display preview availability consistently
+
+---
+
+## FEATURE L7 — Step-Based Progress Sync
+
+29. Fetch step progress state from backend
+30. Render step status strictly from backend data
+31. Prevent frontend-driven step completion
+32. Update step UI only after verification completion
+
+---
+
+## FEATURE L8 — Lesson Integration
+
+33. Fetch lesson metadata from backend
+34. Sync lesson progress updates
+35. Gate lab entry on lesson completion
+36. Handle lesson–lab linkage errors
+
+---
+
+## FEATURE L9 — Error Handling & Resilience
+
+37. Standardize backend error response handling
+38. Display user-safe error messages
+39. Retry transient backend failures
+40. Fail closed on ambiguous backend responses
+
+---
+
+## FEATURE L10 — Audit & Observability Hooks
+
+41. Surface backend audit-relevant events to UI (read-only)
+42. Correlate frontend actions with backend request IDs
+43. Log integration failures for diagnostics
+
+---
+
+## FEATURE L11 — Performance & Consistency
+
+44. Debounce high-frequency backend calls
+45. Avoid redundant API requests
+46. Cache immutable backend responses safely
+47. Invalidate cache on backend state change
+
+---
+
+## EPIC-L COMPLETION CRITERIA
+
+- Frontend never becomes source of truth
+- Backend state reflected consistently in UI
+- Verification, preview, and steps never desync
+
+---
+
+## LOCK DECLARATION (POST-COMPLETION)
+
+After EPIC-L is marked DONE, the following are **SOFT LOCKED**:
+
+- Frontend–backend contracts
+- State synchronization rules
+
+UI changes allowed without breaking backend invariants.
+
+---
+
+# END OF EPIC-L

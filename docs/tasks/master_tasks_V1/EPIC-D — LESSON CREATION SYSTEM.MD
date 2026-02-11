@@ -20,7 +20,7 @@
 
 ---
 
-## FEATURE H1 — Strategy & Scope Definition
+## FEATURE D1 — Strategy & Scope Definition
 
 1. Define Forgea lesson philosophy
 2. Decide lessons vs blogs split
@@ -30,7 +30,7 @@
 
 ---
 
-## FEATURE H2 — Canonical Lesson Template
+## FEATURE D2 — Canonical Lesson Template
 
 6. Design canonical Lesson JSON schema
 7. Define required lesson fields
@@ -44,7 +44,7 @@
 
 ---
 
-## FEATURE H3 — Knowledge Ingestion
+## FEATURE D3 — Knowledge Ingestion
 
 15. Curate trusted source list
 16. Build constrained documentation scraper
@@ -54,7 +54,7 @@
 
 ---
 
-## FEATURE H4 — Vector Database & RAG
+## FEATURE D4 — Vector Database & RAG
 
 20. Choose vector database (Chroma)
 21. Define content chunking rules
@@ -65,7 +65,7 @@
 
 ---
 
-## FEATURE H5 — Prompt System
+## FEATURE D5 — Prompt System
 
 26. Design section-level prompt templates
 27. Define strict output length constraints
@@ -76,7 +76,7 @@
 
 ---
 
-## FEATURE H6 — Lesson Generation Engine
+## FEATURE D6 — Lesson Generation Engine
 
 32. Generate lessons from canonical template
 33. Populate sections using prompt system
@@ -88,7 +88,7 @@
 
 ---
 
-## FEATURE H7 — Validation & Review
+## FEATURE D7 — Validation & Review
 
 39. Validate lesson against schema
 40. Run automated quality checks
@@ -99,7 +99,7 @@
 
 ---
 
-## FEATURE H8 — Storage & Versioning
+## FEATURE D8 — Storage & Versioning
 
 45. Store lesson metadata in database
 46. Store lesson content as JSON or MDX
@@ -109,7 +109,7 @@
 
 ---
 
-## FEATURE H9 — Serving & Rendering
+## FEATURE D9 — Serving & Rendering
 
 50. Expose lesson read API
 51. Enforce access control on lessons
@@ -119,7 +119,7 @@
 
 ---
 
-## FEATURE H10 — Blog System (Optional)
+## FEATURE D10 — Blog System (Optional)
 
 55. Define blog content scope
 56. Separate blog schema from lessons
@@ -128,7 +128,7 @@
 
 ---
 
-## FEATURE H11 — Explicitly Out of Scope (Now)
+## FEATURE D11 — Explicitly Out of Scope (Now)
 
 59. Exclude adaptive learning
 60. Exclude user-generated lessons
@@ -137,7 +137,7 @@
 
 ---
 
-## EPIC-H COMPLETION CRITERIA
+## EPIC-D COMPLETION CRITERIA
 
 - All lesson schemas frozen
 - Lessons generated deterministically

@@ -1,17 +1,14 @@
-import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
-import dotenv from "dotenv";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import 'dotenv/config';
+import { defineConfig } from 'prisma/config';
+import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+dotenv.config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 export default defineConfig({
-  datasource: {
-    url: env("DATABASE_URL"),
-  },
   migrations: {
-    seed: "node --loader ts-node/esm --experimental-specifier-resolution=node prisma/seed.ts",
+    seed: 'node --loader ts-node/esm --experimental-specifier-resolution=node prisma/seed.ts',
   },
 });

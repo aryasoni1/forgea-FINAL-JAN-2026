@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:18.1
+    container_name: forgea-postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - '${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./certs:/var/lib/postgresql/certs:ro
+    command:
+      - postgres
+      - -c
+      - 'TimeZone=UTC'
+      - -c
+      - 'log_timezone=UTC'
+      - -c
+      - 'client_encoding=UTF8'
+      - -c
+      - 'ssl=on'
+      - -c
+      - 'ssl_cert_file=/var/lib/postgresql/certs/server.crt'
+      - -c
+      - 'ssl_key_file=/var/lib/postgresql/certs/server.key'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -h localhost']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - forgea_db
+
+volumes:
+  postgres_data:
+
+networks:
+  forgea_db:
+    internal: true

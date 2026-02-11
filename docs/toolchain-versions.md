@@ -1,9 +1,8 @@
-```md
 # Toolchain Versions
 
 **Status:** ACTIVE
 **Owner:** Platform / Architecture
-**Last Updated:** 2026-02-04
+**Last Updated:** 2026-02-09
 
 This document is the **single source of truth** for all runtime, CI,
 build, caching, formatting, linting, and execution-affecting tools.
@@ -46,20 +45,20 @@ be used for planning or implementation.
 #### Enforcement
 
 - `.nvmrc`
+
+```
+20
 ```
 
-20
-
-````
-
 - `package.json`
+
 ```json
 {
   "engines": {
     "node": ">=20.11.0 <21"
   }
 }
-````
+```
 
 ---
 
@@ -222,6 +221,17 @@ be used for planning or implementation.
 }
 ```
 
+### Next.js — Environment Variables
+
+- **Major:** 15.x
+- **Primary pin:** 15.1.x
+- **Allowed range:** `>=15.1.0 <16.0.0`
+
+#### Why
+
+- Canonical `.env.*` resolution rules
+- `NEXT_PUBLIC_` exposure semantics aligned to App Router
+
 ---
 
 ## 🧠 Language
@@ -266,6 +276,140 @@ be used for planning or implementation.
 
 ---
 
+## 🗄️ Database / ORM
+
+### Prisma
+
+- **Major:** 7.x
+- **Exact pin:** 7.3.0
+- **Allowed range:** `>=7.3.0 <8.0.0`
+
+#### Why
+
+- Schema and migration semantics stabilized
+- Matches internal Prisma policy and docs
+
+---
+
+## 🗃️ Database Engine
+
+### PostgreSQL
+
+- **Major:** 18.x
+- **Primary pin:** 18.1
+- **Allowed range:** `>=18.1 <19.0`
+
+#### Why
+
+- Officially verified DB version
+- Extension and JSONB semantics tracked to 18.1
+
+### PostgreSQL Extensions (pgcrypto, uuid-ossp)
+
+- **Version:** Bundled with PostgreSQL 18.1
+
+### Immutability Triggers
+
+- **Version:** PostgreSQL 18.1
+
+### JSONB Standards
+
+- **Version:** PostgreSQL 18.1
+
+---
+
+## 🏗️ Infrastructure Provisioning (IaC)
+
+### Terraform
+
+- **Major:** 1.6.x
+- **Primary pin:** 1.6.6
+- **Allowed range:** `>=1.6.0 <2.0.0`
+
+#### Why
+
+- Stable language semantics in 1.6.x
+- Matches infrastructure hardening guidance
+
+---
+
+## 🐳 Local Runtime
+
+### Docker Engine
+
+- **Version:** 25.0.x
+
+### Docker Compose
+
+- **Version:** v2.25.x
+- **Compose Spec:** 3.9
+
+---
+
+## 🔗 External APIs
+
+### GitHub REST API
+
+- **Version:** 2022-11-28
+
+---
+
+## 🔒 Data Protection
+
+### GDPR
+
+- **Version:** REGULATION (EU) 2016/679
+
+---
+
+## 💳 Billing
+
+### Stripe API
+
+- **Version:** 2023-10-16
+
+---
+
+## 🔐 Audit & Logging
+
+### OWASP Logging Cheat Sheet
+
+- **Version:** Living document
+
+---
+
+## 🛡️ Compliance References
+
+### NIST SP 800-92
+
+- **Version:** 2006
+
+### PCI DSS
+
+- **Version:** 4.0
+
+### SOC 2 (AICPA)
+
+- **Version:** Trust Services Criteria 2022
+
+### Elastic Common Schema (ECS)
+
+- **Version:** 8.11
+
+---
+
+## 🗂️ Repository Governance
+
+### Git & .gitignore
+
+- **Version:** N/A
+
+### EditorConfig
+
+- **Version:** Spec-based
+
+---
+
 ## 🚫 Explicitly Disallowed
 
 - Node `<20`
@@ -300,7 +444,3 @@ Any change to this file requires:
 
 This document is intentionally boring.
 That is a feature, not a bug.
-
-```
-
-```

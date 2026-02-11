@@ -1,18 +1,19 @@
 ### FEATURE ANALYSIS
 
-- Feature Type: documentation + developer experience
+- Feature Type: documentation
 - Risk Level: Low
 - Touches HARD LOCK: No
 
 ### REQUIRED AGENTS
 
-- Documenter / Historian — Author comprehensive docs: architecture, providers, session model, role model, and security assumptions.
-- Planner / Architect — Review and approve docs for accuracy.
-- Implementer — Link code locations and examples into the docs.
+- Documenter / Historian — Draft the auth architecture docs, session model, and role model documentation.
+- Docs Gatekeeper — Verify docs for completeness and register required official docs in registries.
+- Forgea Code Scout — Provide file references and code snippets to include (read-only).
+- Planner / Architect — Provide locked decisions and acceptance criteria to reference in docs.
 
 ### NOT REQUIRED AGENTS
 
-- Security Sentinel — Consulted for security assumptions, not primary author.
+- Implementer — Not required for writing documentation.
 
 ### MISSING AGENT
 
@@ -20,21 +21,25 @@
 
 ### EXECUTION PLAN
 
-- Step 1: Documenter drafts: auth architecture, supported providers, session model, role model, and security assumptions.
-- Step 2: Implementer provides code samples and file references; Architect reviews for completeness.
-- Step 3: Publish docs under `docs/` and link from EPIC-C index.
+- Step 1: Forgea Code Scout — produce a list of code locations and config files to reference (sequential).
+- Step 2: Planner / Architect — provide locked decisions and task links to reference (sequential).
+- Step 3: Documenter / Historian — author docs: auth architecture, provider setup, session model, role model, and security assumptions (sequential).
+- Step 4: Docs Gatekeeper — validate docs and update registries (sequential).
 
 ### USER PROMPTS
 
-- Documenter / Historian:
-"Draft the auth documentation covering chosen approach, provider setup steps, env variables, DB schema (User/Session), role model, session policies, and known limitations. Include code references and example env file."
+- Forgea Code Scout Prompt:
 
-- Planner / Architect:
-"Review and confirm the documentation accurately reflects the chosen design and any operational constraints."
+  Provide a list of files and code snippets that should be referenced in the auth docs (config, middleware, models, migrations). Output full paths.
 
-- Implementer:
-"Provide code snippets and file references (e.g., `services/auth`, `middleware/auth.ts`, `prisma/schema.prisma`) to be embedded in the docs."
+- Documenter / Historian Prompt:
+
+  Draft documentation covering: auth architecture overview, supported providers, session model (schema), role model (enum and storage), security assumptions, and known limitations. Produce markdown suitable for `/docs/official-docs/EPIC-C/`.
+
+- Docs Gatekeeper Prompt:
+
+  Verify the drafted docs against `docs/master_docs.md` and `docs/official-docs-registry.md` and produce required registry updates.
 
 ### ORCHESTRATOR IMPROVEMENT NOTES
 
-- Encourage adding generated diagrams (sequence flows) to docs for clarity.
+- Recommend a documentation template for auth features to ensure consistent sections (Overview, Schema, Config, Migration, Rollout, Tests).

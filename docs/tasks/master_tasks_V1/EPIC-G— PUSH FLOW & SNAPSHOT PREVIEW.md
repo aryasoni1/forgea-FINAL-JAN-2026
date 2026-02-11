@@ -1,0 +1,173 @@
+# EPIC-G — PUSH FLOW & SNAPSHOT PREVIEW
+
+> Scope: **Webhook intake, push processing, verification triggering, snapshot build, and preview hosting**.
+> No GitHub App setup (handled in EPIC-E), no verification engine internals.
+> This epic is **parallel-safe** with EPIC-A, EPIC-B, EPIC-C, EPIC-H, EPIC-E.
+
+---
+
+## EPIC METADATA
+
+- Epic ID: EPIC-G
+- Parallel Group: PREVIEW
+- File Ownership:
+  - services/webhooks/\*\*
+  - services/push-flow/\*\*
+  - services/preview/\*\*
+
+- Lock Policy: SOFT LOCK (policies stable, infra configurable)
+- Blast Radius: ZONE
+
+---
+
+## FEATURE G1 — Webhook Intake & Security
+
+1. Create GitHub webhook endpoint
+2. Read raw request body
+3. Verify webhook HMAC signature
+4. Reject requests with invalid signature
+5. Log rejected webhook attempts
+6. Parse event headers safely
+7. Accept only `push` events
+8. Ignore all non-push events
+
+---
+
+## FEATURE G2 — Push Event Normalization
+
+9. Extract repository full name
+10. Extract branch reference
+11. Extract pusher identity
+12. Extract commit list from payload
+13. Normalize commit metadata (SHA, author, timestamp)
+14. Deduplicate commits by SHA
+15. Handle webhook retry idempotently
+
+---
+
+## FEATURE G3 — Repo → Session Binding
+
+16. Lookup active LabSession by repo name
+17. Verify session status = IN_PROGRESS
+18. Reject push if no active session exists
+19. Reject push if session already ended
+20. Audit rejected session bindings
+
+---
+
+## FEATURE G4 — Branch & History Validation
+
+21. Validate branch is allowed
+22. Detect force-push attempts
+23. Reject history rewrite attempts
+24. Reject pushes to protected branches
+25. Audit branch violations
+
+---
+
+## FEATURE G5 — Lab Attempt Ledger (Immutable)
+
+26. Create LabAttempt per commit
+27. Link LabAttempt to LabSession
+28. Store commit SHA
+29. Store author identity
+30. Store branch name
+31. Store changed file list
+32. Store push timestamp
+33. Prevent duplicate LabAttempt creation
+34. Enforce append-only behavior
+
+---
+
+## FEATURE G6 — Audit Logging
+
+35. Log accepted push events
+36. Log rejected push events
+37. Store rejection reason codes
+38. Attach repo, session, and commit references
+39. Preserve audit immutability
+
+---
+
+## FEATURE G7 — Verification Trigger (Boundary Only)
+
+40. Detect eligible LabAttempt for verification
+41. Create VerificationJob record
+42. Link VerificationJob to commit SHA
+43. Queue VerificationJob for runner
+44. Prevent verification inside webhook handler
+
+---
+
+## FEATURE G8 — Verification Result Intake
+
+45. Receive verification completion signal
+46. Update VerificationJob status
+47. Persist verification logs (truncated)
+48. Persist exit code and duration
+
+---
+
+## FEATURE G9 — Snapshot Build Trigger
+
+49. Trigger snapshot build only on PASSED verification
+50. Reject snapshot build on FAILED or ERROR
+51. Fetch exact commit SHA for build
+52. Run static build command
+53. Fail snapshot build on build errors
+
+---
+
+## FEATURE G10 — Snapshot Artifact Handling
+
+54. Generate immutable snapshot ID
+55. Hash snapshot using commit + lab ID
+56. Store build artifacts in preview storage
+57. Enforce read-only file permissions
+58. Prevent backend/API artifacts from upload
+
+---
+
+## FEATURE G11 — Preview Hosting
+
+59. Publish snapshot to preview domain
+60. Generate stable preview URL
+61. Disable cookies and auth headers
+62. Block non-GET HTTP methods
+63. Apply strict CSP headers
+64. Disable indexing via robots headers
+
+---
+
+## FEATURE G12 — Snapshot Lifecycle Management
+
+65. Record snapshot metadata in database
+66. Link snapshot to LabSession and commit
+67. Enforce retention policy (time-based)
+68. Delete expired snapshots safely
+69. Audit snapshot deletion events
+
+---
+
+## EPIC-G COMPLETION CRITERIA
+
+- Push events processed deterministically
+- Verification triggered exactly once per commit
+- Snapshots built only from verified commits
+- Previews are read-only and isolated
+
+---
+
+## LOCK DECLARATION (POST-COMPLETION)
+
+After EPIC-G is marked DONE, the following are **SOFT LOCKED**:
+
+- Webhook intake logic
+- Push normalization rules
+- Snapshot hosting policies
+
+Breaking changes require explicit approval and regression testing.
+
+---
+
+# END OF EPIC-G

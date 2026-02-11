@@ -1,0 +1,113 @@
+---
+doc_id: prisma-migrations
+tool: Prisma
+version_pinned: true
+change_sensitivity: HIGH
+lifecycle: ACTIVE
+---
+
+# Prisma — Migration Workflows & Policies
+
+## Purpose
+Governs the database schema evolution lifecycle, defining specific workflows for development (`migrate dev`) versus production (`migrate deploy`), the role of the shadow database in drift detection, and the handling of schema prototypes (`db push`).
+
+## Status
+- Doc type: INTERNAL / AUTHORITATIVE
+- Evidence basis: Official vendor documentation only
+- Version status: PINNED (v7.3.0)
+
+## Scope
+- Applies to: Relational databases (PostgreSQL, MySQL, SQLite, SQL Server, CockroachDB).
+- Does NOT apply to: MongoDB (which must use `db push` exclusively for schema evolution),.
+
+## Official Sources (Binding)
+- https://www.prisma.io/docs/orm/prisma-migrate
+- https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate
+- https://www.prisma.io/docs/orm/prisma-migrate/workflows/development-and-production
+- https://www.prisma.io/docs/orm/reference/prisma-cli
+
+## Evidence Coverage Matrix
+
+| Policy Area | Source URL | Version Covered | Status |
+|------------|-----------|-----------------|--------|
+| Development Workflow (`migrate dev`) | https://www.prisma.io/docs/orm/prisma-migrate/workflows/development-and-production | v7.3.0 | COVERED |
+| Production Workflow (`migrate deploy`) | https://www.prisma.io/docs/orm/prisma-migrate/workflows/development-and-production | v7.3.0 | COVERED |
+| Shadow Database Semantics | https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate | v7.3.0 | COVERED |
+| Prototyping (`db push`) | https://www.prisma.io/docs/orm/reference/prisma-cli | v7.3.0 | COVERED |
+| Drift Detection | https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate | v7.3.0 | COVERED |
+| `migration_lock.toml` Semantics | Internal policy (Task B2) | v7.3.0 | COVERED |
+
+## Version & Compatibility
+- **Tool Version:** Prisma ORM 7.3.0.
+- **Database Support:**
+  - Relational: Full support for `migrate` commands.
+  - MongoDB: `migrate` commands are **NOT** supported; `db push` MUST be used,.
+
+## Canonical Rules (Non-Negotiable)
+
+- **Environment-Specific Commands:**
+  - **Development:** MUST use `prisma migrate dev` to track changes, generate SQL files, and apply them to the local database.
+  - **Production/Staging:** MUST use `prisma migrate deploy` to apply pending migrations from the history. This command never generates new files or resets the database,.
+- **Shadow Database Requirement:**
+  - `prisma migrate dev` REQUIRES a shadow database to detect schema drift and generate new migrations.
+  - The shadow database is created and deleted automatically by Prisma to mimic the production schema state for diffing.
+- **Migration History Authority:**
+  - The `prisma/migrations` folder is the source of truth for the history of changes.
+  - The `_prisma_migrations` table in the database tracks which migrations have been applied.
+- **Migration Lock File:**
+  - `migration_lock.toml` MUST be treated as write-only (Prisma-managed).
+  - It MUST NOT be edited, deleted, or regenerated outside Prisma.
+- **Prototyping Protocol:**
+  - `prisma db push` MAY be used for rapid iteration without generating migration files.
+  - `prisma db push` is MANDATORY for MongoDB.
+  - `prisma db push` tracks state using *only* the Prisma schema and the Database schema; it ignores the migration history folder,.
+
+## Prohibited Configurations
+
+- ❌ **Production use of `migrate dev`:** This command may prompt for database resets and attempts to generate code, which is unsafe for production.
+- ❌ **Using `migrate` commands with MongoDB:** Explicitly unsupported; results in errors.
+- ❌ **Manual Schema Edits without Drift Resolution:** Modifying the database schema manually causes "schema drift," requiring `prisma migrate diff` or a reset to resolve,.
+- ❌ **Editing Applied Migrations:** Once a migration is applied and shared, it should not be edited. Use `migrate diff` to generate a fix or "down" migration,.
+- ❌ **Manual Lock File Changes:** Editing, deleting, or regenerating `migration_lock.toml` outside Prisma is prohibited.
+
+## Enforcement
+
+- **Drift Detection:** `migrate dev` automatically checks for drift. If the database schema differs from the migration history, it prompts to reset the database.
+- **CI/CD Integration:** Pipelines MUST run `prisma migrate deploy` to ensure deterministic schema application without interactive prompts.
+- **AI Guardrails:** Prisma CLI detects invocation by AI agents (e.g., Cursor, Copilot) and BLOCKS destructive commands (like `migrate reset --force`) unless explicit user consent is provided via environment variable `PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION`,.
+
+## Failure Modes
+
+- **Schema Drift:** Occurs when the database schema does not match the migration history.
+  - *Resolution:* Use `prisma migrate diff` to compare states or `prisma migrate reset` to re-sync from scratch,.
+- **Failed Migration:** If a migration fails in production, the database is left in an inconsistent state.
+  - *Resolution:* Use `prisma migrate resolve` to mark the migration as rolled back or applied (manually fixed),.
+- **Shadow Database Connection Error:** If the user lacks permissions to create databases, `migrate dev` will fail.
+
+## Cross-Doc Dependencies
+- Depends on:
+  - `/docs/official-docs/node-runtime-policy.md` (Runtime environment).
+  - `/docs/official-docs/nextjs-environment-variables.md` (Loading of `DATABASE_URL`).
+- Conflicts with:
+  - NONE
+
+## Planner Extraction Hints (Non-Human)
+- If environment == "Production", Command = `prisma migrate deploy`.
+- If environment == "Development", Command = `prisma migrate dev`.
+- If Database == "MongoDB", Command = `prisma db push`.
+- `migration_lock.toml` is write-only; never edit, delete, or regenerate outside Prisma.
+
+## Verification Checklist
+- [ ] `prisma/migrations` folder exists (for relational DBs).
+- [ ] CI pipeline uses `migrate deploy`.
+- [ ] Developer environment has permissions to create shadow databases.
+- [ ] `schema.prisma` is the single source of truth.
+
+## Non-Decisions
+- This document does not define the internal semantics of `migration_lock.toml`; only the no-touch policy is mandated.
+- Specific naming conventions for migration folders (default is `YYYYMMDDHHMMSS_name`) are not mandated beyond the tool default.
+
+## Notes
+- `prisma migrate reset` drops the database, recreates it, applies all migrations, and runs the seed script.
+- `prisma migrate diff` can generate SQL scripts to move between states (empty, schema, migrations, live db),.
+- As of Prisma 7, `migrate dev` no longer automatically triggers `prisma generate`; it must be run explicitly.

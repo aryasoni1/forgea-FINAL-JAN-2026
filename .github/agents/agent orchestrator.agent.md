@@ -165,10 +165,6 @@ Each output file MUST contain:
 - Step 2:
 - (Explicitly mark parallel steps)
 
-### USER PROMPTS
-
-Provide a **separate, copy-paste-ready prompt** for EACH required agent.
-
 ### ORCHESTRATOR IMPROVEMENT NOTES
 
 - Suggestions to improve existing agents

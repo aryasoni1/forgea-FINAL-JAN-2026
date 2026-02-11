@@ -1,15 +1,23 @@
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../../node_modules/@prisma/client"
 }
 
 enum UserRole {
-  CANDIDATE
   ADMIN
+  USER
   RECRUITER
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  GITHUB
 }
 
 enum SubscriptionTier {
@@ -38,11 +46,15 @@ model User {
   id        String  @id @default(uuid()) @db.Uuid
   email     String  @unique
   githubId  String? @unique
-  role      UserRole @default(CANDIDATE)
+  role      UserRole @default(USER)
   icprScore Int     @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   accounts  Account[]
   sessions  Session[]
+  authIdentities AuthIdentity[]
+  authSessions   AuthSession[]
   labSessions LabSession[]
   auditLogs AuditLog[]
 }
@@ -73,6 +85,26 @@ model Session {
   expires      DateTime
 
   user         User     @relation(fields: [userId], references: [id])
+}
+
+model AuthIdentity {
+  id             String       @id @default(uuid()) @db.Uuid
+  userId         String       @db.Uuid
+  provider       AuthProvider
+  providerUserId String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerUserId])
+}
+
+model AuthSession {
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {

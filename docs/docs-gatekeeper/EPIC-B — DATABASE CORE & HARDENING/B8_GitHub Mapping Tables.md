@@ -74,6 +74,7 @@
 ⚠️ DOCUMENTATION PARTIAL — EXTENSION REQUIRED
 
 Docs to extend or add (brief):
+
 - Extend `/docs/official-docs-registry.md` to include GitHub API/webhooks and Data Protection references with explicit version pins or notes.
 - Add `/docs/official-docs/EPIC-B/postgresql.md` with the pinned Postgres version and required extensions.
 - Add `/docs/official-docs/privacy-and-retention.md` with retention timelines, deletion semantics, and guidance on storing third-party account identifiers.
