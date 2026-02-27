@@ -116,13 +116,13 @@ import { auditLog } from "@forgea/audit";
 
 ```typescript
 // Apps cannot import from other apps
-import { AdminPanel } from "@forgea/admin";  // ❌ ERROR
+import { AdminPanel } from "@forgea/admin"; // ❌ ERROR
 
 // Apps cannot import from services
-import { ApiClient } from "@forgea/api-core";  // ❌ ERROR
+import { ApiClient } from "@forgea/api-core"; // ❌ ERROR
 
 // Services cannot import from other services
-import { verify } from "@forgea/verification-runner";  // ❌ ERROR
+import { verify } from "@forgea/verification-runner"; // ❌ ERROR
 ```
 
 **ESLint will block these imports automatically.**
@@ -145,6 +145,7 @@ git checkout -b fix/issue-123
 ```
 
 Branch naming convention: `{type}/{description}`
+
 - `feature/` — New feature
 - `fix/` — Bug fix
 - `refactor/` — Code refactoring
@@ -208,13 +209,15 @@ apps/forgea-labs/src/page.ts
    mv apps/forgea-labs/shared-component.tsx packages/ui/src/shared-component.tsx
    ```
 4. **Update imports:**
+
    ```typescript
    // Change from:
    import { Component } from "@forgea/admin";
-   
+
    // To:
    import { Component } from "@forgea/ui";
    ```
+
 5. **Verify fix:**
    ```bash
    pnpm exec eslint apps/forgea-labs/src/page.ts
@@ -361,6 +364,7 @@ Follow conventional commits format:
 ```
 
 **Types:**
+
 - `feat` — New feature
 - `fix` — Bug fix
 - `refactor` — Code refactoring
@@ -420,26 +424,32 @@ pnpm test
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] New feature
 - [ ] Bug fix
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 How was this tested?
+
 - [ ] Unit tests added/updated
 - [ ] Manual testing performed
 - [ ] All tests passing
 
 ## Boundary Check
+
 - [ ] No cross-app imports added
 - [ ] ESLint boundaries verification: `pnpm exec eslint apps/**/*.ts packages/**/*.ts`
 - [ ] All boundary violations resolved
 
 ## Checklist
+
 - [ ] Code follows TypeScript and naming conventions
 - [ ] Comments added for complex logic
 - [ ] Documentation updated
@@ -449,6 +459,7 @@ How was this tested?
 ### 3. CI Checks
 
 Your PR must pass:
+
 - ✅ ESLint boundary enforcement
 - ✅ TypeScript compilation
 - ✅ All unit tests
@@ -487,6 +498,7 @@ git push origin feature/my-feature
 **Problem:** Import of `@forgea/ui` fails with "module not found"
 
 **Solution:**
+
 ```bash
 # Reinstall workspace
 pnpm install
@@ -503,6 +515,7 @@ cat pnpm-workspace.yaml
 **Problem:** TypeScript can't resolve a path
 
 **Solution:**
+
 ```bash
 # Rebuild project references
 tsc --build --force
@@ -517,6 +530,7 @@ tsc
 **Problem:** TypeScript parser fails on valid code
 
 **Solution:**
+
 ```bash
 # Update TypeScript
 pnpm update typescript
@@ -530,6 +544,7 @@ pnpm install --frozen-lockfile=false
 **Problem:** Another process is using the development port
 
 **Solution:**
+
 ```bash
 # Find process on port 3000
 lsof -i :3000
@@ -546,6 +561,7 @@ PORT=3001 pnpm dev
 **Problem:** Git merge has lockfile conflicts
 
 **Solution:**
+
 ```bash
 # Take current version
 git checkout --ours pnpm-lock.yaml

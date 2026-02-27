@@ -79,14 +79,17 @@ turbo ls
 ## Architecture Policies
 
 ### No Cross-App Imports
+
 Applications must not import from other applications. Shared code goes in `packages/*`.
 
 ### Allowed Import Patterns
+
 - `apps/*` → `packages/*` ✅
 - `packages/*` → `packages/*` ✅
 - `services/*` → `packages/*` ✅
 
 ### Blocked Import Patterns
+
 - `apps/*` → `apps/*` ❌
 - `apps/*` → `services/*` ❌
 - `services/*` → `services/*` ❌
@@ -112,14 +115,18 @@ For detailed policies, see [docs/official-docs/repo-boundaries.md](../docs/offic
 ## Project Structure
 
 ### Apps
+
 Each application is independently deployable:
+
 - **forgea-labs** — Lab execution environment with integrated IDE
 - **forgea-admin** — Admin console for platform management
 - **forgea-learn** — Student learning dashboard
 - **forgea-lessons** — Instructor lesson creation tool
 
 ### Packages
+
 Shared libraries used across multiple apps and services:
+
 - **@forgea/ui** — Shared React components and design system
 - **@forgea/schema** — Prisma schema, database types, and generated clients
 - **@forgea/config** — Configuration management and secrets
@@ -128,7 +135,9 @@ Shared libraries used across multiple apps and services:
 - **@forgea/markdown** — Markdown parsing and rendering utilities
 
 ### Services
+
 Backend microservices:
+
 - **@forgea/api-core** — REST API server
 - **@forgea/content-engine** — Lab content processing and templating
 - **@forgea/verification-runner** — Automated lab verification and testing
@@ -136,6 +145,7 @@ Backend microservices:
 ## Development Workflow
 
 ### 1. Create a Feature Branch
+
 ```bash
 git checkout main
 git pull
@@ -143,12 +153,14 @@ git checkout -b feature/your-feature-name
 ```
 
 ### 2. Make Changes
+
 ```bash
 # Edit source files, add tests
 pnpm exec eslint apps/**/*.ts --fix  # Auto-fix lint issues
 ```
 
 ### 3. Verify Boundaries
+
 ```bash
 pnpm exec eslint apps/**/*.ts packages/**/*.ts
 ```
@@ -156,12 +168,14 @@ pnpm exec eslint apps/**/*.ts packages/**/*.ts
 Ensure no architectural boundaries are violated.
 
 ### 4. Test Changes
+
 ```bash
 pnpm build
 pnpm test
 ```
 
 ### 5. Commit and Push
+
 ```bash
 git add .
 git commit -m "feat: describe your changes"
@@ -169,6 +183,7 @@ git push origin feature/your-feature-name
 ```
 
 ### 6. Create Pull Request
+
 - Link to relevant issues
 - Describe changes and rationale
 - Ensure CI checks pass
@@ -179,6 +194,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 ## Continuous Integration
 
 The CI pipeline validates:
+
 - ✅ ESLint boundaries (no cross-app imports)
 - ✅ TypeScript compilation (no type errors)
 - ✅ Unit tests (all tests pass)
@@ -190,12 +206,14 @@ Pull requests cannot merge until all checks pass.
 ## Monorepo Commands
 
 ### Installation & Setup
+
 ```bash
 pnpm install          # Install all dependencies
 pnpm install --frozen-lockfile  # CI mode (fail if lockfile out of sync)
 ```
 
 ### Development
+
 ```bash
 pnpm dev              # Start all dev servers
 pnpm build            # Build all packages
@@ -204,6 +222,7 @@ pnpm test             # Run all tests
 ```
 
 ### Workspace Information
+
 ```bash
 pnpm ls -r --depth -1           # List all workspace packages
 turbo ls                        # Verify Turborepo package graph
@@ -213,16 +232,19 @@ pnpm list package-name          # View dependencies of a package
 ### Adding Dependencies
 
 **Add to root devDependencies:**
+
 ```bash
 pnpm add -Dw package-name
 ```
 
 **Add to specific package:**
+
 ```bash
 pnpm add package-name --filter @forgea/ui
 ```
 
 **Add peer dependency:**
+
 ```bash
 pnpm add package-name --filter @forgea/ui -P
 ```
@@ -234,6 +256,7 @@ pnpm add package-name --filter @forgea/ui -P
 **Problem:** `pnpm ls` doesn't show all packages
 
 **Solution:**
+
 ```bash
 # Verify package.json exists in directory
 ls apps/my-app/package.json
@@ -247,6 +270,7 @@ pnpm install
 **Problem:** ESLint reports cross-app imports
 
 **Solution:** Move shared code to `packages/*`
+
 ```bash
 mv apps/app-a/shared.ts packages/shared/src/shared.ts
 # Update imports to: import { ... } from "@forgea/shared"
@@ -257,6 +281,7 @@ mv apps/app-a/shared.ts packages/shared/src/shared.ts
 **Problem:** Type errors in app or package
 
 **Solution:**
+
 ```bash
 cd packages/schema
 tsc --build
@@ -269,6 +294,7 @@ Check for circular dependencies or missing composite flag.
 **Problem:** CI fails with "pnpm-lock.yaml out of sync"
 
 **Solution:**
+
 ```bash
 rm pnpm-lock.yaml
 pnpm install
@@ -279,6 +305,7 @@ git commit -m "chore: regenerate lockfile"
 ## Support
 
 For questions or issues:
+
 - Check the [documentation](../docs/)
 - Open an issue on GitHub
 - Contact the platform team: @forgea/platform-team

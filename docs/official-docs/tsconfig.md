@@ -112,10 +112,11 @@ With this setup:
 
 ```typescript
 // In apps/forgea-labs/src/main.ts
-import { createClient } from "@forgea/schema";  // Resolved via pnpm symlink to packages/schema
+import { createClient } from "@forgea/schema"; // Resolved via pnpm symlink to packages/schema
 ```
 
 TypeScript:
+
 - Finds `@forgea/schema` in `node_modules/@forgea/schema/` (pnpm symlink)
 - Reads `package.json` to find `types` or `main` field
 - Loads the `.d.ts` file from the compiled output

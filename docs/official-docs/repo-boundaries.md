@@ -25,6 +25,7 @@ This document defines the architectural boundaries, ownership patterns, and depe
 **Enforcement:** ESLint rule `boundaries/element-types` allows `app` → `package` imports only.
 
 **Example:**
+
 ```typescript
 // ✅ Allowed
 import { Button } from "@forgea/ui";
@@ -76,6 +77,7 @@ The `CODEOWNERS` file at the repository root defines ownership for different par
 ```
 
 Each application team is responsible for:
+
 - Code quality and style consistency
 - Feature development and testing
 - Performance and accessibility
@@ -91,6 +93,7 @@ Each application team is responsible for:
 ```
 
 Shared package teams are responsible for:
+
 - API stability and backward compatibility
 - Version management and changelogs
 - Cross-app testing and validation
@@ -106,6 +109,7 @@ Shared package teams are responsible for:
 ```
 
 Service teams are responsible for:
+
 - Service availability and performance
 - Internal API contracts
 - Deployment and monitoring
@@ -122,6 +126,7 @@ Certain files require special approval and cannot be modified without explicit a
 ```
 
 **Hard Lock Rules:**
+
 - Changes to migration files require explicit approval from database team
 - Changes to Prisma schema require migration and review
 - Changes to CI workflows require platform team sign-off

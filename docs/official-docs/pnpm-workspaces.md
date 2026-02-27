@@ -36,6 +36,7 @@ pnpm ls -r --depth -1
 ```
 
 This command lists all packages discovered by pnpm. For Forgea, this should return 13 packages total:
+
 - 1 root package (forgea-monorepo)
 - 4 apps (forgea-admin, forgea-labs, forgea-learn, forgea-lessons)
 - 6 packages (@forgea/audit, @forgea/config, @forgea/design, @forgea/markdown, @forgea/schema, @forgea/ui)

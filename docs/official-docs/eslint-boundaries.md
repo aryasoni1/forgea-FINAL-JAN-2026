@@ -8,32 +8,32 @@ This document describes the ESLint import boundary enforcement system for the Fo
 
 The monorepo is divided into three architectural elements:
 
-| Element | Pattern | Purpose |
-|---------|---------|---------|
-| `app` | `apps/*` | User-facing applications |
+| Element   | Pattern      | Purpose                        |
+| --------- | ------------ | ------------------------------ |
+| `app`     | `apps/*`     | User-facing applications       |
 | `package` | `packages/*` | Shared libraries and utilities |
-| `service` | `services/*` | Backend microservices |
+| `service` | `services/*` | Backend microservices          |
 
 ## Allowed Import Patterns
 
 The following import relationships are **allowed**:
 
-| From | To | Allowed |
-|------|----|---------| 
-| `app` | `package` | ✅ YES |
-| `package` | `package` | ✅ YES |
-| `service` | `package` | ✅ YES |
+| From      | To        | Allowed |
+| --------- | --------- | ------- |
+| `app`     | `package` | ✅ YES  |
+| `package` | `package` | ✅ YES  |
+| `service` | `package` | ✅ YES  |
 
 ## Blocked Import Patterns
 
 The following import relationships are **blocked**:
 
-| From | To | Blocked | Reason |
-|------|----|---------|---------| 
-| `app` | `app` | ❌ NO | Prevents cross-app coupling |
-| `app` | `service` | ❌ NO | Prevents app access to internal services |
-| `service` | `app` | ❌ NO | Prevents service access to frontend logic |
-| `service` | `service` | ❌ NO | Prevents cross-service coupling |
+| From      | To        | Blocked | Reason                                    |
+| --------- | --------- | ------- | ----------------------------------------- |
+| `app`     | `app`     | ❌ NO   | Prevents cross-app coupling               |
+| `app`     | `service` | ❌ NO   | Prevents app access to internal services  |
+| `service` | `app`     | ❌ NO   | Prevents service access to frontend logic |
+| `service` | `service` | ❌ NO   | Prevents cross-service coupling           |
 
 ## Configuration
 
@@ -55,7 +55,7 @@ export default [
     },
     rules: {
       "boundaries/element-types": [
-        2,  // Severity: 2 = error (fail-closed enforcement)
+        2, // Severity: 2 = error (fail-closed enforcement)
         {
           default: "disallow",
           rules: [
@@ -93,7 +93,7 @@ If an app attempts to import from another app:
 
 ```typescript
 // ❌ VIOLATION: apps/forgea-labs/src/page.ts
-import { SomeComponent } from "@forgea/admin";  // ERROR: Cross-app import
+import { SomeComponent } from "@forgea/admin"; // ERROR: Cross-app import
 ```
 
 ESLint output:
@@ -151,7 +151,7 @@ Look at the file and line number:
 
 ```typescript
 // apps/forgea-labs/src/admin.ts, line 42
-import { AdminPanel } from "@forgea/admin";  // ❌ Cross-app import
+import { AdminPanel } from "@forgea/admin"; // ❌ Cross-app import
 ```
 
 ### Step 3: Move Shared Code to a Package
@@ -173,7 +173,7 @@ Update the import in the app:
 
 ```typescript
 // apps/forgea-labs/src/admin.ts
-import { AdminPanel } from "@forgea/ui";  // ✅ Import from shared package
+import { AdminPanel } from "@forgea/ui"; // ✅ Import from shared package
 ```
 
 ### Step 5: Verify the Fix
@@ -214,7 +214,7 @@ Create a temporary test file:
 
 ```typescript
 // apps/forgea-labs/src/test-violation.ts
-import { something } from "@forgea/admin";  // ❌ Should trigger violation
+import { something } from "@forgea/admin"; // ❌ Should trigger violation
 ```
 
 Run ESLint:
@@ -231,7 +231,7 @@ Create a test for allowed imports:
 
 ```typescript
 // apps/forgea-labs/src/test-allowed.ts
-import { Button } from "@forgea/ui";  // ✅ Should NOT trigger violation
+import { Button } from "@forgea/ui"; // ✅ Should NOT trigger violation
 ```
 
 Run ESLint:
