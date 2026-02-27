@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forgea.example.com/schemas/audit-event-1.0.0.json",
+  "title": "Forgea Audit Event",
+  "description": "Canonical audit-event schema (v1.0.0). Producers MUST validate against this before writing to AuditLog.",
+  "type": "object",
+  "required": ["actorId","action","resource","resourceId","source","severity","timestamp"],
+  "properties": {
+    "actorId": {"type":"string","description":"Unique actor identifier (user id, system id)"},
+    "action": {"type":"string","description":"Canonical action name (e.g., LOGIN, LAB_VERIFY_ATTEMPT, SUBSCRIPTION_UPDATE)"},
+    "resource": {"type":"string","description":"Resource type (e.g., USER, LAB, SUBSCRIPTION)"},
+    "resourceId": {"type":"string","description":"Resource identifier (UUID or external id)"},
+    "source": {"type":"string","description":"Event source (service or subsystem name)"},
+    "severity": {"type":"string","enum":["LOW","MEDIUM","HIGH"],"description":"Event severity"},
+    "timestamp": {"type":"string","format":"date-time","description":"ISO-8601 UTC timestamp"},
+    "correlationId": {"type":"string","description":"Optional correlation id for tracing across services"},
+    "metadata": {
+      "type":"object",
+      "description":"Free-form metadata; producers must keep serialized size <= 12KB",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
