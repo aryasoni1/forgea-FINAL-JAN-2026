@@ -1,0 +1,55 @@
+# CODEOWNERS
+
+# This file defines code ownership and approval requirements for pull requests.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Root and workspace configuration - Platform team
+/pnpm-workspace.yaml                    @forgea/platform-team
+/package.json                           @forgea/platform-team
+/turbo.json                             @forgea/platform-team
+/eslint.config.js                       @forgea/platform-team
+/tsconfig.json                          @forgea/platform-team
+/.github/                               @forgea/platform-team
+/.github/workflows/                     @forgea/platform-team
+
+# Documentation
+/README.md                              @forgea/platform-team
+/CONTRIBUTING.md                        @forgea/platform-team
+/docs/                                  @forgea/platform-team
+
+# Applications
+/apps/                                  @forgea/platform-team
+
+/apps/forgea-labs/                      @forgea/labs-team
+/apps/forgea-admin/                     @forgea/admin-team
+/apps/forgea-learn/                     @forgea/learning-team
+/apps/forgea-lessons/                   @forgea/lessons-team
+
+# Shared Packages
+/packages/                              @forgea/platform-team
+
+/packages/ui/                           @forgea/design-team
+/packages/design/                       @forgea/design-team
+
+/packages/schema/                       @forgea/database-team
+/packages/schema/prisma/schema.prisma   @forgea/database-team
+# Database migrations are HARD LOCK - read-only for most developers
+/packages/schema/prisma/migrations/     @forgea/database-team
+
+/packages/config/                       @forgea/infra-team
+/packages/audit/                        @forgea/security-team
+/packages/markdown/                     @forgea/content-team
+
+# Backend Services
+/services/                              @forgea/backend-team
+
+/services/api-core/                     @forgea/api-team
+/services/content-engine/               @forgea/content-team
+/services/verification-runner/          @forgea/verification-team
+
+# CI/CD and Infrastructure - Critical paths
+/.github/workflows/                     @forgea/platform-team
+/infra/                                 @forgea/infra-team
+
+# Default owner for any file not explicitly mentioned
+*                                       @forgea/platform-team
